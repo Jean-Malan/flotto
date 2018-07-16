@@ -1,0 +1,51 @@
+
+<br>
+<%= link_to 'New Bank account', new_bank_account_path, class: "btn btn-primary col-md-3" %>
+
+
+<br><br>
+<div class="card">
+ <div class="card-body table-responsive">
+   <table class="table table-hover">
+    <thead class="text-warning">
+      <tr>
+        <th colspan="1"></th>
+        <th scope="col">Account code</th>
+        <th scope="col">Account name</th>
+        <th scope="col">Account ID</th>
+        <th scope="col">Account Balance</th>
+        <th colspan="1"></th>
+      </tr>
+      </thead>
+
+  <tbody>
+    <% @bank_accounts.each do |bank_account| %>
+      <tr>
+        <td></td>
+        <td><%=link_to bank_account.code, bank_account %></td>
+         <td><%= link_to bank_account.name, bank_account  %></td>
+         <td><%= link_to bank_account.id, bank_account  %></td>
+         <td><%= number_to_currency(bank_account.financial_transactions.sum(:total_amount), :unit => "R ")  %></td>
+          <td><%= link_to 'Edit', edit_bank_account_path(bank_account) %> |
+              <%= link_to 'Destroy', bank_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+
+
+     <td></td>
+     <td><%= link_to "Unallocated transactions", bank_accounts_unallocated_path %></td>
+     <td></td>
+     <td></td>
+      <td><% @total = 0 %><% @financial_transactions.each do |transaction| %>
+      <% if transaction.gl_account_id == nil%>
+          <% @total += transaction.total_amount.to_f.round(2) %>
+          <% end %>
+          <% end %>
+          <%= link_to  number_to_currency(@total, :unit => "R "),bank_accounts_unallocated_path    %></td>
+          <td></td>
+     </thead>
+  </tbody>
+</table>
+
+<br>
+

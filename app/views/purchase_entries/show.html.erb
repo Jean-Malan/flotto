@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @purchase_entry.product_id %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @purchase_entry.description %>
+</p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @purchase_entry.account_id %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @purchase_entry.quantity %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @purchase_entry.price %>
+</p>
+
+<p>
+  <strong>Total price:</strong>
+  <%= @purchase_entry.total_price %>
+</p>
+
+<p>
+  <strong>Purchase:</strong>
+  <%= @purchase_entry.purchase_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @purchase_entry.user_id %>
+</p>
+
+<p>
+  <strong>Gl account:</strong>
+  <%= @purchase_entry.gl_account_id %>
+</p>
+
+<p>
+  <strong>Vat type:</strong>
+  <%= @purchase_entry.vat_type %>
+</p>
+
+<p>
+  <strong>Vat amount:</strong>
+  <%= @purchase_entry.vat_amount %>
+</p>
+
+<p>
+  <strong>Net price:</strong>
+  <%= @purchase_entry.net_price %>
+</p>
+
+<%= link_to 'Edit', edit_purchase_entry_path(@purchase_entry) %> |
+<%= link_to 'Back', purchase_entries_path %>

@@ -1,0 +1,405 @@
+<div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats  bg-primary">
+                               <div class="card-header card-header card-header-icon">
+                                    <div class="card-icon-white">
+                                       <h1> <i class="material-icons text-white pull-left" >store</i></h1>
+                                    </div>
+                                   <center><h4 class="card-category card-bg-warning text-white"><strong>Sales - Past 30 Days </strong></h4></center></strong> 
+                                    <h3 class="card-title text-white"> <strong><% @totals = 0 %>
+                                                            <% @sale_total.each do |sales| %>
+                                                            <% if sales.sales_type = "invoice"%>
+                                                            <% @totals += sales.amount.round(2) %>
+                                                            <% end %>
+                                                            <% end %>
+                                                            R<%= @totals %></strong></h3>
+                                                            
+                                                         
+                                        <small></small>
+                                    </h3>
+                                </div>
+                               <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons"></i> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header card-header card-header-icon">
+                                    <div class="card-icon-white">
+                                       <h1> <i class="material-icons text-success pull-left" >account_balance</i></h1>
+                                    </div>
+                                    <h4 class="card-category text-success"><strong>Bank balance</strong></h4>
+                                    <h3 class="card-title text-success"> <strong><% @total = 0 %> <% @transactions.each do |transactions| %>
+                                                            <% if transactions.total_amount.present? %>
+                                                            <% @total += transactions.total_amount %>
+                                                            <% end %>
+                                                            <% end %>
+                                                            R<%= @total.round(2) %></strong></h3>
+                                                           
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons"></i> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-icon">
+                                    <div class="card-icon-white">
+                                        <h1> <i class="material-icons text-danger pull-left" >trending_up</i></h1>
+                                    </div>
+                                  <strong>  <h4 class="card-category text-danger"><strong>Grosss Profit</strong></h4></strong>
+                                    <h3 class="card-title text-danger"><strong>R3320</strong></h3>
+                                                         
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons"></i> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats bg-danger">
+                                 <div class="card-header card-header card-header-icon">
+                                    <div class="card-icon-white">
+                                       <h1> <i class="material-icons text-white pull-left" >shopping_cart</i></h1>
+                                    </div>
+                                   <strong> <h4 class="card-category text-white "><strong> Expenses - Past 30 days</strong></h4></strong>
+                                    <h3 class="card-title text-white "><strong>R125000</strong></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons"></i> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                         <div class="col-xl-3">
+                                <div class="card bg-primary card-body bx-shadow-lg">
+                                    <h4 class="header-title text-white">Weekly Sales</h4>
+                                    <p class=" text-white">March 26 - April 01</p>
+                                    <div class="mb-3 mt-4">
+                                        <h2 class="font-weight-light  text-white">R3,558.48</h2>
+                                    </div>
+        
+                                    <div class="pull-in margin-m-b-20">
+                                        <canvas id="lineChart" height="122"></canvas>
+                                    </div>
+                                </div> 
+                                 </div><!-- end card-box-->
+                                
+                                
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-tabs card-header-info">
+                                    <div class="nav-tabs-navigation">
+                                        <div class="nav-tabs-wrapper">
+                                            <span class="nav-tabs-title text-center"></span>
+                                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                                <li class="nav-item text-center">
+                                                    <a class="nav-link active text-center" href="#profile" data-toggle="tab">
+                                                        <i class="material-icons">all_inclusive</i> Paid Sales
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item text-center">
+                                                    <a class="nav-link text-center" href="#messages" data-toggle="tab">
+                                                        <i class="material-icons">subject</i> Partially Paid Sales
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item text-center">
+                                                    <a class="nav-link text-center" href="#settings" data-toggle="tab">
+                                                      <center> <i class="material-icons">cake</i> Unpaid Sales </center>  
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="profile">
+                                            <table class="table">
+                                  <thead class="text-">
+                                     <tr><th>Inv:</th>
+                                            <th>Name</th>
+                                            <th>Amount</th>
+                                            <th>Paid</th>
+                                        </tr></thead>
+                                        <tbody>
+                                            <tr>
+                                                <% @sale.each do |sale|%>
+                                                <% if sale.balance != nil %>
+                                                <% if sale.amount.to_f <= sale.balance.to_f %>
+                                                <td> <%= link_to sale.id, sale_path(sale), class: 'text-dark' %></td>
+                                                <td> <%= link_to "Inv #{sale.id}", sale_path(sale), class: 'text-dark' %></td>
+                                                <td><%= link_to number_to_currency(sale.amount, :unit => 'R'), sale_path(sale),class: 'text-dark'  %></td>
+                                                <td><%= link_to number_to_currency(sale.balance, :unit => 'R'), sale_path(sale), class: 'text-dark'  %></td>
+                                                </tr>
+                                                <% end %>
+                                                <% end %>
+                                                <% end %>
+                                            </tbody>
+                                            </table>
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+                                        </div>
+                                        <div class="tab-pane" id="messages">
+                                            <table class="table">
+                                                <tbody>
+                                                  <thead class="text-">
+                                     <tr><th>Inv:</th>
+                                            <th>Name</th>
+                                            <th>Amount</th>
+                                            <th>Paid</th>
+                                        </tr></thead>
+                                            <tr>
+                                                <% @sale.limit(4).each do |sale|%>
+                                                <% if sale.balance != 0 && sale.balance < sale.amount %>
+                                                <td> <%= link_to sale.id, sale_path(sale), class: 'text-dark' %></td>
+                                               <td> <%= link_to sale.amount, sale_path(sale), class: 'text-dark' %></td>
+                                                <td><%= link_to number_to_currency(sale.amount, :unit => 'R'), sale_path(sale),class: 'text-dark'  %></td>
+                                                <td><%= link_to number_to_currency(sale.balance, :unit => 'R'), sale_path(sale), class: 'text-dark'  %></td>
+                                                </tr>
+                                                <% end %>
+                                                <% end %>
+                                             
+                                            </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane" id="settings">
+                                            <table class="table">
+                                                 <thead class="text-">
+                                     <tr><th>Inv:</th>
+                                            <th>Name</th>
+                                            <th>Amount</th>
+                                            <th>Paid</th>
+                                        </tr></thead>
+ 
+                                        <tbody>
+                                            <tr>
+                                                <% @sale.limit(4).each do |sale|%>
+                                                <% if sale.balance == 0 %>
+                                               <td> <%= link_to sale.id, sale_path(sale), class: 'text-dark' %></td>
+                                               <td> <%= sale.contact ? sale.contact.name : "no customer"  %></td>
+                                                <td><%= link_to number_to_currency(sale.amount, :unit => 'R'), sale_path(sale),class: 'text-dark'  %></td>
+                                                <td><%= link_to "0", sale_path(sale), class: 'text-dark'  %></td>
+                                                </tr>
+                                                <% end %>
+                                                <% end %>
+                                             
+                                            </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                       <div class="pull-left col-md-3">
+                                 <div class="card bg-danger card-body bx-shadow-lg">
+                                    <h4 class="header-title text-white"><strong>Weekly Expenses</strong></h4>
+                                    <p class=" text-white">March 26 - April 01</p>
+                                    <div class="mb-3 mt-4">
+                                        <h2 class="font-weight-light  text-white">R1,554.80</h2>
+                                    </div>
+        
+                                    <div class="pull-in margin-m-b-20">
+                                        <canvas id="lineChart" height="122"></canvas>
+                                    </div>
+                                    </div>
+                                </div> <!-- end card-box-->
+                                
+                                </div>
+                                
+                       
+                    </div>
+                </div>
+            </div>
+            <div class= 'row'>
+                     <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header card-header-twitch ">
+                                    <h4 class="card-title pull"><strong>Expenses</strong></h4>
+                                    <p class="card-category pull right"></p>
+                                </div>
+                                        <div class="col-md-12">
+                                            <div class = 'card-body text-center center'>
+                                          <center>  <h5 class="mb-1 mt-0">1,12,540</h5></center>
+                                            <div class="progress-w-percent">
+                                                <span class="progress-value font-weight-bold">72% </span>
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: 72%;" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+        
+                                            <h5 class="mb-1 mt-0">51,480 <small class="text-muted ml-2">www.youtube.com</small></h5>
+                                            <div class="progress-w-percent">
+                                                <span class="progress-value font-weight-bold">39% </span>
+                                                <div class="progress progress-sm">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 39%;" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+        
+                                            <h5 class="mb-1 mt-0">45,760 <small class="text-muted ml-2">www.dribbble.com</small></h5>
+                                            <div class="progress-w-percent">
+                                                <span class="progress-value font-weight-bold">61% </span>
+                                                <div class="progress progress-sm">
+                                                    <div class="progress-bar bg-info" role="progressbar" style="width: 61%;" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+        
+                                            <h5 class="mb-1 mt-0">98,512 <small class="text-muted ml-2">www.behance.net</small></h5>
+                                            <div class="progress-w-percent">
+                                                <span class="progress-value font-weight-bold">52% </span>
+                                                <div class="progress progress-sm">
+                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 52%;" aria-valuenow="52" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+        
+                                            <h5 class="mb-1 mt-0">2,154 <small class="text-muted ml-2">www.vimeo.com</small></h5>
+                                            <div class="progress-w-percent">
+                                                <span class="progress-value font-weight-bold">28% </span>
+                                                <div class="progress progress-sm">
+                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 28%;" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row-->
+                                </div>  <!-- end card-box-->
+                            </div> <!-- end col -->
+                            
+                             <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-purple ">
+                                    <h4 class="card-title pull">Employees Stats</h4>
+                                    <p class="card-category pull right"></p>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="text">
+                                            <tr><th>ID</th>
+                                            <th>Name</th>
+                                            <th>Salary</th>
+                                            <th>Country</th>
+                                        </tr></thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Anthony Cook</td>
+                                                <td>R36,738</td>
+                                                <td>Cape Town</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Jean Malan</td>
+                                                <td>R23,789</td>
+                                                <td>Cape Town</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Tim Schumann</td>
+                                                <td>R56,142</td>
+                                                <td>South Africa</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>Miles Hamilton</td>
+                                                <td>R38,735</td>
+                                                <td>South Africa</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                                 </div>
+                            
+            <footer class="footer ">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                       
+                    </nav>
+                    <div class="copyright pull-right">
+                        
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+            <ul class="dropdown-menu">
+                <li class="header-title"> Sidebar Filters</li>
+                <li class="adjustments-line">
+                    <a href="javascript:void(0)" class="switch-trigger active-color">
+                        <div class="ml-auto mr-auto">
+                            <span class="badge filter badge-purple active" data-color="purple"></span>
+                            <span class="badge filter badge-azure" data-color="azure"></span>
+                            <span class="badge filter badge-green" data-color="green"></span>
+                            <span class="badge filter badge-orange" data-color="orange"></span>
+                            <span class="badge filter badge-danger" data-color="danger"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </li>
+                <li class="header-title">Images</li>
+                <li class="active">
+                    <a class="img-holder switch-trigger" href="javascript:void(0)">
+                        <img src="../assets/img/sidebar-1.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)">
+                        <img src="../assets/img/sidebar-2.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)">
+                        <img src="../assets/img/sidebar-3.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)">
+                        <img src="../assets/img/sidebar-4.jpg" alt="">
+                    </a>
+                </li>
+                <li class="button-container">
+                    <div>
+                        <a href="http://www.creative-tim.com/product/material-dashboard" target="_blank" class="btn btn-primary btn-block btn-fill">Free download</a>
+                    </div>
+                </li>
+                <li class="header-title">Want more components?</li>
+                <li class="button-container">
+                    <div>
+                        <a href="http://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">Get the PRO version</a>
+                    </div>
+                </li>
+                <li class="button-container">
+                    <div>
+                        <a href="http://demos.creative-tim.com/material-dashboard/docs/2.0/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block">View Documentation</a>
+                    </div>
+                </li>
+                <li class="header-title" id="sharrreTitle">Thank you for 95 shares!</li>
+                <li class="button-container">
+                    <button id="twitter" class="btn btn-social btn-twitter btn-round sharrre"><i class="fa fa-twitter"></i> · 45</button>
+                    <button id="facebook" class="btn btn-social btn-facebook btn-round sharrre"><i class="fa fa-facebook-square"></i> · 50</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @gl_account.code %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @gl_account.name %>
+</p>
+
+<p>
+  <strong>Account type:</strong>
+  <%= @gl_account.account_type %>
+</p>
+
+<%= link_to 'Edit', edit_gl_account_path(@gl_account) %> |
+<%= link_to 'Back', gl_accounts_path %>

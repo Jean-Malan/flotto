@@ -1,0 +1,60 @@
+<%= form_for(@contact) do |f| %>
+  <% if @contact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+
+      <ul>
+      <% @contact.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <center><div class="justify-content-md-center">
+    <div class="col-lg-6 col-md-12">
+      <div class="card">
+        <div class="card-header card-header-warning">
+                                    <h4 class="card-title">Contact</h4>
+                                    <p class="card-category"></p>
+                                     </div>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :address_one%><br>
+    <%= f.text_field :address_one, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :address_two %><br>
+    <%= f.text_field :address_two, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :city %><br>
+    <%= f.text_field :city, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.text_field :state, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :zipcode %><br>
+    <%= f.text_field :zipcode, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.number_field :phone, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :website %><br>
+    <%= f.text_field :website, class: 'form-control' %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Create Contact', :class => 'btn btn-success'  %>
+  </div>
+<% end %>
+</div>
+</div>
+</div>

@@ -1,0 +1,36 @@
+<% if notice %>
+    <p class= 'alert alert-success'><%= notice %></p>
+<% end %>
+</br>
+
+<%= link_to 'New Journal', new_journal_path, class: "btn btn-warning" %>
+</br></br>
+<div class= "card">
+<table class ="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th colspan="1"></th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @journals.each do |journal| %>
+      <tr>
+        <td> <%= link_to journal.reference, journal %> </td>
+        <td><%= journal.date %></td>
+        <td><%= journal.description %></td>
+        <td>
+        <%= link_to 'Edit', edit_journal_path(journal) %> | 
+       <%= link_to 'Delete', journal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<br>
+
+

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  amount: 1.5
+  account_id: 1
+  debit: false
+  credit: false
+  date: 2018-07-05
+  user_id: 1
+  journal_id: 1
+  gl_account_id: 1
+  current_liability: false
+  non_current_liability: false
+  equity: false
+
+two:
+  description: MyString
+  amount: 1.5
+  account_id: 1
+  debit: false
+  credit: false
+  date: 2018-07-05
+  user_id: 1
+  journal_id: 1
+  gl_account_id: 1
+  current_liability: false
+  non_current_liability: false
+  equity: false

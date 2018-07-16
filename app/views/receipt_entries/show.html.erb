@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Transaction:</strong>
+  <%= @receipt_entry.transaction_id %>
+</p>
+
+<%= link_to 'Edit', edit_receipt_entry_path(@receipt_entry) %> |
+<%= link_to 'Back', receipt_entries_path %>

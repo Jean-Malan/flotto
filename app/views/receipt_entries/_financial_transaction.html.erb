@@ -1,0 +1,26 @@
+<tr id ='row transactionType'>
+    <td>
+              <%= f.hidden_field :_destroy %>
+              <%= link_to "remove", '#', class: "remove_record" %>
+    </td>
+    <td>
+      <select id="select" class= 'btn btn-sm' name="Transaction type" >
+       
+        <option value = 'standard'>Regular</option>
+        <option value = 'invoice'>Invoice</option>
+       </select>
+    </td>
+    
+     <td> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td>
+     <td><%= f.text_field :description, label: false, class: 'form-control input'  %></td>
+     <td><%= f.text_field :reference, label: false, class: 'form-control input'  %></td>
+     <td>  <%= f.collection_select :bank_account_id, BankAccount.where(:user_id => current_user.id), :id, :name, {:prompt => false},class:"btn btn-sm" %></td>
+     <td class = ''><%= f.collection_select :gl_account_id, GlAccount.where(:user_id => current_user.id), :id, :name, {:include_blank => 'Select Account'}, class:"btn btn-sm standarddrop" %></td>
+     <td class = ''><%= f.collection_select :sale_id, Sale.where(:user_id => current_user.id), :id, :date, {:include_blank => 'Select Inv'}, class:"btn btn-sm invoicedrop" %></td>
+     <td class = ''><%= f.collection_select :vat_type, FinancialTransaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:include_blank => 'Select Vat'},class:"btn btn-sm standarddrop"  %></td>
+     <td> <%= f.text_field :total_amount, class: 'form-control input'  %></td>
+         <%= f.hidden_field :user_id, :value => current_user.id %>
+
+     
+
+</div>

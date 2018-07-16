@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+
+<%= link_to 'New GL Account', new_gl_account_path, class:'btn btn-warning' %>
+<%= link_to 'New Bank Account', new_bank_account_path, class:'btn btn-success' %>
+
+ <div class="card">
+ <div class="card-body table-responsive">
+   <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Account type</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @gl_accounts.each do |gl_account| %>
+      <tr>
+        <td><%= link_to gl_account.code, edit_gl_account_path(gl_account)  %></td>
+        <td><%= gl_account.name %></td>
+        <td><%= gl_account.account_type.humanize %></td>
+        <td><%= link_to 'Destroy', gl_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+</div>
+</div>

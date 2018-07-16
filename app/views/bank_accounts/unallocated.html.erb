@@ -1,0 +1,105 @@
+
+
+<% if notice %>
+    <p class= 'alert alert-success'><%= notice %> <a href="#" data-dismiss="alert" class="close">×</a></p>
+<% end %>
+
+  <div class="col-md-3">
+    <div class="card card-stats">
+    <div class="card-header card-header-success card-header-icon">
+    <div class="card-icon">
+    <i class="material-icons">store</i>
+  </div>
+
+                            
+                         
+                            
+    </div>
+     </div>
+     </div>
+     </div>
+     
+
+<%= link_to 'Add General Payment', new_payment_entry_path, class:'btn btn-warning' %> | <%= link_to 'Add Invoice Payments', payment_entries_invoice_entry_path, class:'btn btn-warning' %> | <%= link_to 'New General Receipts', new_receipt_entry_path, class:'btn btn-success' %> | <%= link_to 'New Invoice Receipts', receipt_entries_invoice_entry_path, class:'btn btn-success' %>
+<%= form_tag import_transactions_path, multipart: true do %>
+<div class='btn btn-white col-md-2 btn-small pull-left'><%= file_field_tag :file %></div>
+<%= submit_tag 'Import CSV', class: ' col-med-3 btn btn-info'%>
+<%end%>
+
+
+
+ <div class="card">
+     <div class="accordion">
+ <div class="card-body table-responsive">
+     <table class="table table-hover fold-table">
+    <thead class="text-warning">
+      <tr>
+        <th scope="col">Date</th>
+         <th colspan="0.3">Reference</th>
+        <th scope="col">Description</th>
+        <th scope="col">Account</th>
+        <th scope="col">Amount</th>
+
+        <th colspan="1"></th>
+      </tr>
+      </thead>
+      <tbody>
+
+       <% @transactions.each do |transaction| %>
+       <% if  transaction.bank_account_id == nil || transaction.gl_account_id == nil %>
+          <tr class="view">
+          <% if  transaction.amount < 0  %>
+             
+    <td> <font color =" #EC971F"><%= transaction.date %></font></td>
+     <% else %>
+    <td>   <font color =" #47A44B"><%= transaction.date %></font></td>
+      <% end %>
+         <td><div class ="table-color"><%=  transaction.reference %></div></td>
+          <td><div class ="table-color"><%=  transaction.description %></div></td>
+         <% if transaction.gl_account.present? %>
+             <td><div class ="table-color"> <%= transaction.gl_account ? transaction.gl_account.name.to_s : "Not mapped - find this transaction a home!" %></div></td>
+              <%else%>
+               <td class ='text-danger'><%= transaction.contact_id ? transaction.contact_id.name.to_s : "Not mapped - find this transaction a home!"%></div></td>
+               <%end%>
+               <td><div class ="table-color"><%= link_to transaction.vat_amount ? transaction.vat_amount.round(3) : ""  %></td>
+          <td><div class ="table-color"><%= link_to transaction.amount ? transaction.amount.round(3) : ""  %></td>
+           <td><%= link_to 'More', edit_transaction_path(transaction) %> | 
+               <%= link_to 'Delete', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      </div>
+     <tr class="fold">
+      <div class="fold-content">
+       <%= simple_form_for(transaction, remote: true)  do |f| %>
+        <td> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td>
+        <td><%= f.text_field :reference, label: false, class: 'form-control input', placeholder: 'reference'  %></td>
+       <td><%= f.text_field :description, label: false, class: 'form-control input', placeholder: 'description'  %></td>
+        <td><%= f.collection_select :gl_account_id, GlAccount.all, :id, :name, {:prompt => false},class:"btn btn-sm", id:"office_address"%></td>
+         <td><%= f.collection_select :vat_type, Transaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => false},class:"btn btn-sm"  %></td>
+        <td> <%= f.text_field :amount, class: 'form-control input'  %></td>
+         <td><%= f.collection_select :bank_account_id, BankAccount.all, :id, :name, {:prompt => false},class:"btn btn-sm", id:"office_address"%></td>
+         <td>   <%= f.submit 'Update Transaction', class: 'btn btn-success btn-sm'%></td> 
+       </div>
+     </tr>
+     
+       <%end%>
+       <%end%>
+         <%end%>
+               
+       
+      </tbody>
+    </table>
+    </div>
+    </div>
+
+</div>
+</div>
+<br>
+
+<%= link_to 'Edit', edit_transaction_path(@transactions) %> |
+<%= link_to 'Back', bank_accounts_path %>
+
+<div class ="pagination
+
+
+
+

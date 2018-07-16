@@ -1,0 +1,71 @@
+
+<div class="form-fields">
+<%= simple_form_for(@financial_transaction) do |f| %>
+  <% if @financial_transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@financial_transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+      <% @financial_transaction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <center>
+<center><div class="justify-content-md-center">
+  <div class="col-lg-12 col-md-12">
+  <div class = "card">
+   <div class="card-header card-header-success">
+                                    <h4 class="card-title">New Transaction</h4>
+                                    <p class="card-category"></p>
+                                     </div> 
+    <div class="card-text">
+  <form class="needs-validation" novalidate>
+  <table class = "table">
+    <thead>
+    <tr>
+      <th class ="colspan-1"></th>
+      <th class ="colspan-1">Date</th>
+       <th class ="colspan-1">Description</th>
+      <th class ="colspan-1">Reference</th>
+       <th class ="colspan-1">Bank</th>
+      <th class ="colspan-1">Account</th>
+        <th class ="col-md-1">Vat</th>
+      <th class ="colspan-1">Amount</th>
+    </tr>
+  </thead>
+  
+  
+  <tr>
+    <td>
+         
+              <%= f.hidden_field :_destroy %>
+              <%= link_to "remove", '#', class: "remove_record" %>
+
+    </td>
+    <td>
+      <td><select id="select_option">
+  <option value="home">Home</option>
+  <option value="office">Office</option>
+</select>
+</td>
+   <td> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td>
+    <td><%= f.text_field :description, label: false, class: 'form-control input'  %></td>
+        <td><%= f.text_field :reference, label: false, class: 'form-control input'  %></td>
+        <td>  <%= f.collection_select :bank_account_id, BankAccount.where(:user_id => current_user.id), :id, :name, {:prompt => true},class:"btn" %></td>
+        <td><%= f.collection_select :gl_account_id, GlAccount.where(:user_id => current_user.id), :id, :name, {:prompt => true},class:"btn", id:"office_address"%></td>
+        <td><%= f.input :vat_type, as: :select, label: " '", collection: FinancialTransaction.vat_types.map { |key, value| [key.humanize, key] }, class: "btn" %></td>
+        <td> <%= f.text_field :total_amount, class: 'form-control input'  %></td>
+        <%  f.check_box :payment, :value => true %>
+     
+    </table>
+</div>
+
+    </div>
+ <div class="actions">
+   <%= f.submit 'Add Transaction', class: 'btn btn-success'%>
+<% end %>  
+<%= link_to 'Back', bank_accounts_path, class: "btn btn-default" %>
+</div>
+</center>

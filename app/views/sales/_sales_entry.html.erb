@@ -1,0 +1,18 @@
+<tr>
+    <td>
+              <%= f.hidden_field :_destroy %>
+              <%= link_to "remove", '#', class: "remove_record" %>
+    </td>
+    
+    
+
+    <td class="col-md-1"> <%= f.collection_select :product_id, Product.where(:user_id => current_user.id), :id, :name, {:prompt => false},class:"btn btn-default btn-sm" %></td>
+     <td class="col-md-4"> <%= f.text_field :description, label: false, class:"form-control" %></td>
+    <td class="col-md-1"> <%= f.collection_select :gl_account_id, GlAccount.where(:user_id => current_user.id), :id, :name, {:prompt => false},class:"btn btn-default btn-sm" %></td>
+    <td><%= f.collection_select :vat_type, SalesEntry.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => false},class:"btn btn-default btn-sm"  %></td>
+       <td><%= f.text_field :quantity, label: false, class:"form-control qty"%></td>
+    <td><%= f.text_field :price, label: false, class:"form-control price"%></td>
+    <td id="amount"><p class='amount' id-"amount"><center>0.00</center></p></td>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+     
+</tr>

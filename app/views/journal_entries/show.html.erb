@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @journal_entry.description %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @journal_entry.amount %>
+</p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @journal_entry.account_id %>
+</p>
+
+<p>
+  <strong>Debit:</strong>
+  <%= @journal_entry.debit %>
+</p>
+
+<p>
+  <strong>Credit:</strong>
+  <%= @journal_entry.credit %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @journal_entry.date %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @journal_entry.user_id %>
+</p>
+
+<p>
+  <strong>Journal:</strong>
+  <%= @journal_entry.journal_id %>
+</p>
+
+<p>
+  <strong>Gl account:</strong>
+  <%= @journal_entry.gl_account_id %>
+</p>
+
+<p>
+  <strong>Current liability:</strong>
+  <%= @journal_entry.current_liability %>
+</p>
+
+<p>
+  <strong>Non current liability:</strong>
+  <%= @journal_entry.non_current_liability %>
+</p>
+
+<p>
+  <strong>Equity:</strong>
+  <%= @journal_entry.equity %>
+</p>
+
+<%= link_to 'Edit', edit_journal_entry_path(@journal_entry) %> |
+<%= link_to 'Back', journal_entries_path %>

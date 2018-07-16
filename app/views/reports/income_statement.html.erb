@@ -1,0 +1,158 @@
+<p id="notice"><%= notice %></p>
+
+<h1><center><strong>Income Statement</strong></center></h1>
+</br>
+
+<center>
+
+
+<div class ="pull-left">
+<%= form_tag @bank_account_path, :method => 'get', :id => "transaction_search" do %>
+  <p>
+    <%= text_field_tag :search, params[:search], :class => 'btte col-md-6' %>
+    <%= submit_tag "Search", :name => nil, :class => 'btn btn-wwhite' %>
+  </p>
+<% end %>
+</div>
+<div class ="pull-left">
+<%= form_tag @bank_account_path, :method => 'get', :id => "transaction_search" do %>
+  <p>
+    <%= text_field_tag :searchref, params[:searchref], :class => 'btte col-md-6', :placeholder => 'Search references' %>
+    <%= submit_tag "Search", :name => nil, :class => 'btn btn-wwhite' %>
+  </p>
+<% end %>
+</div>
+  
+  
+  <div class= "card col-md-12">
+<table class="table table-hover">
+  <thead>
+    <tr>
+     <th class="text-info"><h3><strong>Account </strong></h3></th>
+      <th><strong></strong></th>
+      <th class="text-info"><h3><strong>Balance </strong></h3></th>
+    </tr>
+  </thead>
+
+ <tbody>
+   <td><h5><strong>Revenue</strong></h5></td>
+   <td></td>
+   <td></td>
+  </tbody>
+  
+  <!----------------------------------------------- Revenue -------------------------------------------- !-->
+  <tbody>
+
+   <% @gl_accounts.each do |account| %>
+         
+         <% if account.account_type == 'sales' %>
+      <tr>
+        <td> <%= account.code %> - <%= account.name %></td>
+        <td> </td>
+        <% @sales_income = 0 %>
+        <% @sales_income += account.financial_transactions.sum(:total_amount).round(2) + account.journal_entries.sum(:amount).round(2) %>
+        <% @sales_income += account.sales_entries.sum(:total_price) %>
+    <% end %>
+     <% end %>
+             <td><%= @sales_income %></td>
+         
+      </tr>
+  </tbody>
+  
+  
+  <tbody>
+    <% @gl_accounts.each do |account| %>
+         
+         <% if account.account_type == 'other_income' %>
+      <tr>
+         <td> <%= account.code %> - <%= account.name %></td>
+        <td> </td>
+        <% @other_income = 0 %>
+        <td><%= @other_income += account.financial_transactions.sum(:total_amount).round(2) + account.journal_entries.sum(:amount).round(2) - account.sales_entries.sum(:price).round(2)  %></td>
+      </tr>
+    <% end %>
+
+    <% end %>
+  </tbody>
+  
+  
+  <!----------------------------------------------- Cost of sales  -------------------------------------------- !-->
+    <tbody>
+   <td><h5><strong>Cost of Sales</strong></h5></td>
+   <td></td>
+   <td></td>
+  </tbody>
+   
+   <tbody>
+   
+     <% @gl_accounts.zip(@purchases).each do |account, purchases| %>
+         
+         <% if account.account_type == 'cost_of_sales'%>
+
+      <tr>
+          <td> <%= account.code %> - <%= account.name %></td>
+        <td> </td>
+        <% @cost_of_sales = 0 %>
+        <% @cost_of_sales += account.financial_transactions.sum(:total_amount).round(2)  + account.journal_entries.sum(:amount).round(2)  %>
+        <% @purchases.each do |purchase| %>
+         <% if purchase.purchases_type == 'invoice' %> 
+               <% @cost_of_sales  -= purchase.purchase_entries.sum(:total_price) %>
+           <% end %>    
+    <% end %>
+   <% end %>
+    <% end %>
+<td><%= @cost_of_sales %></td>
+</tr>
+  </tbody>
+  
+    <!----------------------------------------------- Gross Profit  -------------------------------------------- !-->
+ 
+ <tbody>
+     <tr>
+   <td><h5><strong>Gross Profit</strong></h5></td>
+   <td></td><% @gross_profit = 0 %>
+   <td><h5><strong><%= @gross_profit += @cost_of_sales.to_f  + @sales_income.to_f  %></h5></strong></td>
+   </tr>
+  </tbody>
+  
+      <!----------------------------------------------- Operating Expenses  -------------------------------------------- !-->
+  
+  <tbody>
+   <td><h5><strong>Operating Expenses</strong></h5></td>
+   <td></td>
+   <td></td>
+  </tbody>
+   
+   
+   
+   <tbody>
+
+     <% @gl_accounts.each do |account| %>
+         
+         <% if account.account_type == 'operating_expense' %>
+      <tr>
+          <td> <%= account.code %> - <%= account.name %></td>
+        <td> </td>
+        <% @operating_expense = 0 %>
+       <%  @operating_expense += account.financial_transactions.sum(:total_amount).round(2) - account.journal_entries.sum(:amount).round(2)  %>
+        <td><%= @operating_expense  %></td>
+      </tr>
+      <% end %>
+   <% end %>
+
+      
+  </tbody>
+       <!----------------------------------------------- Net Profit -------------------------------------------- !-->
+  
+  <tbody>
+   <td><h5><strong><u>Net Profit</u></strong></h5></td>
+   <td></td>
+   <td><h5><strong><%= @net_profit %></h5></strong></td>
+  </tbody>
+ 
+  
+</table>
+</center>
+</div>
+
+

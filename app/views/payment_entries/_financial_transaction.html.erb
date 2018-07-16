@@ -1,0 +1,27 @@
+<tr id ='row'>
+    <td>
+              <%= f.hidden_field :_destroy %>
+              <%= link_to "remove", '#', class: "remove_record" %>
+    </td>
+    <td>
+      <select id="select" class= 'btn btn-sm' name="Transaction type" >
+       <option class = 'standard'>Select</option>
+        <option class = 'standard'>Regular</option>
+        <option class = 'invoice'>Invoice</option>
+       </select>
+    </td>
+    
+     <td> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td>
+     <td><%= f.text_field :description, label: false, class: 'form-control input'  %></td>
+     <td><%= f.text_field :reference, label: false, class: 'form-control input'  %></td>
+     <td>  <%= f.collection_select :bank_account_id, BankAccount.where(:user_id => current_user.id), :id, :name, {:prompt => false},class:"btn btn-default btn-sm" %></td>
+    <div> <td class = 'standard'><%= f.collection_select :gl_account_id, GlAccount.where(:user_id => current_user.id), :id, :name, {:prompt => false}, class:"btn btn-default btn-sm standarddrop", type:"button", id:"dropdownMenuButton" %></td></div>
+     <td><%= f.collection_select :purchase_id, Purchase.where(:user_id => current_user.id), :id, :invoice_number, {:prompt => false},class:"btn btn-default btn-sm invoicedrop" %></td>
+     <td><%= f.collection_select :vat_type, FinancialTransaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => false},class:"btn btn-default standarddrop"  %></td>
+     <td> <%= f.text_field :total_amount, class: 'form-control input'  %></td>
+        <%  f.check_box :payment, :value => true %>
+            <%= f.hidden_field :user_id, :value => current_user.id %>
+
+     
+
+</div>

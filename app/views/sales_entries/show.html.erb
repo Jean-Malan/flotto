@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @sales_entry.product_id %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @sales_entry.description %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @sales_entry.quantity %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @sales_entry.price %>
+</p>
+
+<p>
+  <strong>Vat type:</strong>
+  <%= @sales_entry.vat_type %>
+</p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @sales_entry.account_id %>
+</p>
+
+<p>
+  <strong>Total price:</strong>
+  <%= @sales_entry.total_price %>
+</p>
+
+<p>
+  <strong>Sale:</strong>
+  <%= @sales_entry.sale_id %>
+</p>
+
+<p>
+  <strong>Gl account:</strong>
+  <%= @sales_entry.gl_account_id %>
+</p>
+
+<p>
+  <strong>Vat amount:</strong>
+  <%= @sales_entry.vat_amount %>
+</p>
+
+<%= link_to 'Edit', edit_sales_entry_path(@sales_entry) %> |
+<%= link_to 'Back', sales_entries_path %>

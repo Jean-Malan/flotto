@@ -1,0 +1,141 @@
+<p id="notice"><%= notice %></p>
+
+<center>
+
+<div class= "card col-md-10" style="background-color:#f2f2f2;">
+ 
+  <% if @purchase.purchases_type == "invoice" %>
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">purchase</h4>
+                      <p class="card-category"></p>
+                      </div> 
+                              <% else if @purchase.purchases_type == "draft" %>
+                               <div class="card-header card-header-danger">
+                                 <h4 class="card-title">Draft</h4>
+                                   <p class="card-category"></p>
+                                           </div> 
+                                           <% else if @purchase.purchases_type == "Quote" %>
+                                             <div class="card-header card-header-warning">
+                                               <h4 class="card-title">Draft</h4>
+                                                 <p class="card-category"></p>
+                                           </div> 
+                                     <% end %>
+                                     <% end %>
+                                     <% end %>
+   <table class = "table">
+    <thead >
+      <tr><center>
+    <th>Date: </th>
+   <th>  <%= @purchase.date %> </td></th>
+   <th></th>
+   <th> <strong>Invoice Type:</strong><br></th>
+    <th>  <%= @purchase.purchases_type %></th>
+     <th> <strong>Customer:</strong><br></th>
+    <th><%= @purchase.contact_id ? @purchase.contact.name : '' %> </br>
+       <%= @purchase.contact_id ? @purchase.contact.address_one : '' %> </br>
+      <%= @purchase.contact_id ? @purchase.contact.city : '' %> </br>
+   </tr></center>
+  </div>
+ </div>
+
+</div>
+  </br></br></br>
+  
+<div class= "card">
+
+  <table class = "table">
+    <thead style="background-color:#fff;">
+    <tr>
+      <th>Description</th>
+       <th>Product</th>
+      <th>Account</th>
+      <th>Quantity</th>
+       <th>Vat</th>
+       <th>Net Amount</th>
+        <th>Total</th>
+
+
+  </thead>
+        <h3><left>Invoice Items</left></h3>
+      <tbody style="background-color:#fff;">
+       <% @purchase_entry.each do |entry| %>
+            <% if entry.purchase_id == @purchase.id %>
+
+               <td>  <%= entry.description %></td>
+                <td> <%= entry.product_id ? entry.product.name : ' ' %></td>
+               <td> <%= entry.gl_account ? entry.gl_account.name : ' ' %></td>
+                 <td> <%= entry.quantity %></td>
+                  <td> <%= entry.vat_amount.to_f.round(2) %></td>
+                   <td> <%= entry.net_price.to_f.round(2) %></td>
+                     <td><strong><%= entry.price.round(2)  %></strong></td>
+              </tr>
+                <% end %>
+                    <% end %>
+   </table>
+   
+   <h3 class='pull-left'>Payments</h3>
+   
+   <table class="table">
+       </br>
+      <thead style="background-color:#fff;">
+
+     
+      <th><strong>Date</strong></th>
+       <th><strong>Description</strong></th>
+      <th><strong>Reference</strong></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th><strong>Amount</strong></th>
+
+    </tr>
+    <br>
+    <br>
+      <tr>
+      <% @transactions.each do |transaction| %>
+      <% if transaction.purchase_id == @purchase.id %>
+      
+           <td><%= transaction.date %></td>
+           <td><%=  transaction.description %></td>
+          <td><%=transaction.reference %></td>
+           <td></td>
+          <td></td>
+          <td></td>
+          <td><%= transaction.total_amount %></td>
+          </tr>
+          
+     <% end %>
+     <% end %>
+  
+      
+      
+      </tbody>
+      </table>
+      </br></br>
+      <h3>Balance</h3>
+      <table class ="table">
+      <tbody style="background-color:#fff;">
+        <tr>
+        <td><strong>Balance:</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+         <td></td>
+             
+             <td><strong><%= @purchase.amount.to_f + @purchase.balance.to_f %> </strong></td>
+       
+            
+          </tbody>
+          
+  </table>
+  </div>
+  <%= link_to 'Edit', edit_purchase_path(@purchase), class: "btn btn-default" %> |
+<%= link_to 'Back', purchases_path ,class:"btn btn-default"%>
+ </center>
+
+ 
+ 
+
+
+

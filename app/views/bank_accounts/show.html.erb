@@ -1,0 +1,141 @@
+
+
+<% if notice %>
+    <p class= 'alert alert-success'><%= notice %> <a href="#" data-dismiss="alert" class="close">×</a></p>
+<% end %>
+
+  <div class="col-md-3">
+    <div class="card card-stats">
+    <div class="card-header card-header-success card-header-icon">
+    <div class="card-icon">
+    <i class="material-icons">store</i>
+  </div>
+   <p class="card-category"> Account balance:</p>
+   <% @bank_total = 0 %>
+    <h3 class="card-title"> <% @total.each do |transaction| %>
+                            <% if transaction.bank_account_id == @bank_account.id %>
+                            <% @bank_total += transaction.total_amount.to_f.round(2) %>
+                             <% end %> 
+                              <% end %> 
+                              <%= @bank_total.round(3) %></h3>
+                              
+                            
+                         
+                            
+    </div>
+     </div>
+     </div>
+     </div>
+     
+
+<tr>
+<th><%= link_to 'Add General Payment', new_payment_entry_path, class:'btn btn-danger' %> </th> <th><%= link_to 'New Invoice Receipts', new_receipt_entry_path, class:'btn btn-success' %></th>
+<th><%= form_tag import_financial_transactions_path, multipart: true do %>
+<div class= 'btn btn-default btn-sm'><%= file_field_tag :file %></div>
+<%= submit_tag 'Import CSV', :class => 'btn btn-default btn-sm'%>
+<%end%> </th>
+</tr>
+
+
+
+
+<div class ="pull-right">
+<%= form_tag @bank_account_path, :method => 'get', :id => "transaction_search" do %>
+  <p>
+    <%= text_field_tag :search, params[:search], :class => 'btte' %>
+    <%= submit_tag "Search", :name => nil, :class => 'btn btn-wwhite' %>
+  </p>
+<% end %>
+</div>
+<div class ="pull-right">
+<%= form_tag @bank_account_path, :method => 'get', :id => "transaction_search" do %>
+  <p>
+    <%= text_field_tag :searchref, params[:searchref], :class => 'btte', :placeholder => 'Search references' %>
+    <%= submit_tag "Search", :name => nil, :class => 'btn btn-wwhite' %>
+  </p>
+<% end %>
+
+</div>
+
+
+
+ <div class="card">
+ <div class="card-body table-responsive fold-table">
+   <table class="table table-hover fold-table"  id="transactionType">
+    <thead class="text-warning">
+  
+       <th scope="col">Date</th>
+        <th> Reference</th>
+        <th scope="col">Description</th>
+        <th scope="col">Account</th>
+         <th scope="col">Vat</th>
+        <th scope="col">Amount</th>
+        <th colspan="1"></th>
+      </thead>
+      <tbody>
+       
+             
+        <% @financial_transactions.each do |transaction| %>
+           <tr class="view">
+         <% if transaction.bank_account_id == @bank_account.id %>
+          <% if transaction.total_amount.to_f < 0 %>
+        <td> <font color =" #EC971F"><%= transaction.date %></font></td>
+        <% else %>
+        <td>   <font color =" #47A44B"><%= transaction.date %></font></td>
+          <% end %>
+          <td class ="table-color"><%=  transaction.reference %></td>
+           <td class ="table-color"><%=  transaction.description %></td>
+         <% if transaction.gl_account.present? %>
+             <td class ="table-color"> <%= transaction.gl_account ? transaction.gl_account.name.to_s : "Not mapped - find this transaction a home!" %></td>
+              <%else if transaction.sale.present? %>
+              <td>Inv:<%= transaction.sale ? transaction.sale.id: "Not mapped - find this transaction a home!"%></td>
+              <%else if transaction.purchase.present? %>
+              <td>Inv:<%= transaction.purchase ? transaction.purchase.id: "Not mapped - find this transaction a home!"%></td>
+              <% else %>
+               <td class ='text-danger'><%= transaction.contact_id ? transaction.contact_id.name.to_s : "Not mapped - find this transaction a home!"%></td>
+               <%end%>
+               <%end%>
+                 <%end%>
+               <td class ="table-color"><%= link_to transaction.vat_amount ? number_to_currency(transaction.vat_amount, :unit => 'R') : ""  %></td>
+              <td class ="table-color"><%= link_to transaction.total_amount ? number_to_currency(transaction.total_amount, :unit => 'R')  : ""  %>
+             <td><%= link_to 'More', edit_financial_transaction_path(transaction) %> | 
+                <%= link_to 'Delete', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      
+     <tr class="fold">
+      <div class="fold-content">
+          <%= simple_form_for(transaction, remote: true)  do |f| %>
+       <!--    <td>
+      <select class= 'btn btn-sm' "table" id="transactionType">
+       <option value = 'standard'>P</option>
+        <option value = 'standard'>S</option>
+        <option value = 'invoice'>I</option>
+       </select>
+    </td> -->
+        <td> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td>
+         <td><%= f.text_field :reference, label: false, class: 'form-control input', placeholder: 'reference'  %></td>
+         <td><%= f.text_field :description, label: false, class: 'form-control input', placeholder: 'description'  %></td>
+        <td class = 'standard'><%= f.collection_select :gl_account_id, GlAccount.all, :id, :name, {:prompt => true},class:"btn dropdown-toggle" %></td>
+        <t class = 'invoice'><% f.collection_select :purchase_id, Purchase.all, :id, :invoice_number, {:prompt => true},class:"btn btn-sm invoice" %></t>
+        <td class = 'standard'><%= f.collection_select :vat_type, FinancialTransaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => true},class:"btn btn-sm standard"  %></td>
+         <td> <%= f.text_field :total_amount, class: 'form-control input'  %></td>
+         <td> <%= f.submit 'Update', class:'button'%></td> 
+         
+       </tr>
+       </div>
+   <%end%>
+     <%end%>
+      <% end %>
+   </tbody>
+   
+   
+    </table>
+
+<%= link_to 'Edit', edit_bank_account_path(@bank_account) %> |
+<%= link_to 'Back', bank_accounts_path %>
+
+<%= will_paginate @financial_transactions, class: "pagination pagination-primary" %>
+
+
+
+

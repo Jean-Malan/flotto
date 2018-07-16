@@ -1,0 +1,94 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @financial_transaction.date %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @financial_transaction.description %>
+</p>
+
+<p>
+  <strong>Reference:</strong>
+  <%= @financial_transaction.reference %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @financial_transaction.project_id %>
+</p>
+
+<p>
+  <strong>:</strong>
+  <%= @financial_transaction. %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @financial_transaction.contact_id %>
+</p>
+
+<p>
+  <strong>Vat amount:</strong>
+  <%= @financial_transaction.vat_amount %>
+</p>
+
+<p>
+  <strong>Transaction type:</strong>
+  <%= @financial_transaction.transaction_type %>
+</p>
+
+<p>
+  <strong>Payment entry:</strong>
+  <%= @financial_transaction.payment_entry_id %>
+</p>
+
+<p>
+  <strong>Payment:</strong>
+  <%= @financial_transaction.payment %>
+</p>
+
+<p>
+  <strong>Receipt entry:</strong>
+  <%= @financial_transaction.receipt_entry_id %>
+</p>
+
+<p>
+  <strong>Gl account:</strong>
+  <%= @financial_transaction.gl_account_id %>
+</p>
+
+<p>
+  <strong>Vat type:</strong>
+  <%= @financial_transaction.vat_type %>
+</p>
+
+<p>
+  <strong>Bank account:</strong>
+  <%= @financial_transaction.bank_account_id %>
+</p>
+
+<p>
+  <strong>Total amount:</strong>
+  <%= @financial_transaction.total_amount %>
+</p>
+
+<p>
+  <strong>Purchase:</strong>
+  <%= @financial_transaction.purchase_id %>
+</p>
+
+<p>
+  <strong>Sale:</strong>
+  <%= @financial_transaction.sale_id %>
+</p>
+
+<p>
+  <strong>Net amount:</strong>
+  <%= @financial_transaction.net_amount %>
+</p>
+
+<%= link_to 'Edit', edit_financial_transaction_path(@financial_transaction) %> |
+<%= link_to 'Back', financial_transactions_path %>

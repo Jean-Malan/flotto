@@ -1,0 +1,108 @@
+<%= form_for(@purchase) do |f| %>
+  <% if @purchase.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
+      <ul>
+      <% @purchase.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<center>
+<div class= "card col-md-10">
+  <div class="card-header card-header-warning">
+                                    <h4 class="card-title">Draft Purchase Invoice</h4>
+                                    <p class="card-category"></p>
+                                     </div> 
+   <table class = "table">
+    <thead>
+      <tr><center>
+    <th>  <%= f.label :date %><br></th>
+   <th> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td></th>
+   <th></th>
+   <th>  <%= f.label :customer_id %><br></th>
+    <th> <%= f.collection_select(:contact_id, Contact.all, :id, :name, {:prompt => false},  class:"btn ml-auto")  %></th>
+  <th>  <%=  f.text_field :invoice_number, placeholder: "Invoice number", class: 'form-control'  %></th>
+    <th>  <%=  f.select :purchases_type, Purchase.purchases_types.keys, {}, class: 'btn btn-default pull-right'  %></th>
+   </tr></center>
+   <th></th>
+  </div>
+ </div>
+
+</div>
+  </br></br></br>
+  
+ 
+<div class= "card">
+  <table class = "table">
+    <thead>
+    <tr>
+      <th class ="colspan-1"></th>
+       <th class ="colspan-1">Product</th>
+      <th class ="colspan-1">Description</th>
+      <th class ="colspan-1">Account</th>
+      <th class ="colspan-1">Vat</th>
+      <th class ="colspan-1">Quantity</th>
+      <th class ="colspan-1">Amount</th>
+      <th class ="colspan-1">Total</th>
+    </tr>
+  </thead>
+    
+
+      <div class = "card">
+ <tbody class ="fields">
+    <%= f.fields_for :purchase_entries do |builder| %>
+    <%= render 'purchase_entry', f: builder %>
+    <% end %>
+    </div>
+  </div>
+  </tbody>
+  
+  </table>
+  <%= link_to_add_row('Add line', f, :purchase_entries, class: 'btn btn-warning') %>
+  </br> </br>
+   <%= f.text_area :notes, class: 'form-control', placeholder: 'Notes' %> 
+  </div>
+  <div class="actions">
+
+    </br></br>
+     <%= f.submit 'Create Invoice', :class => 'btn btn-success' %> | <%= link_to 'Back', purchases_path, class:"btn btn-default" %>
+
+  </div>
+<% end %>
+ </center>
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

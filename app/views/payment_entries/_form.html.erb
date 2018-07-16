@@ -1,0 +1,47 @@
+<%= simple_form_for(@payment_entry) do |f| %>
+  <% if @payment_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payment_entry.errors.count, "error") %> prohibited this payment_entry from being saved:</h2>
+<%end%>
+ <center><div class="justify-content-md-center">
+  <div class="col-lg-12 col-md-12">
+  <div class = "card">
+   <div class="card-header card-header-success">
+                                    <h4 class="card-title">New Transaction</h4>
+                                    <p class="card-category"></p>
+                                     </div> 
+    <div class="card-text">
+  <form class="needs-validation" novalidate>
+  <table class = "table" id="transactionType">
+    <thead>
+    <tr>
+      <th class ="colspan-1"></th>
+      <th class ="colspan-1">Transaction Type</th>
+      <th class ="colspan-1">Date</th>
+       <th class ="colspan-1">Description</th>
+      <th class ="colspan-1">Reference</th>
+       <th class ="colspan-1">Bank</th>
+      <th class ="colspan-1">Account</th>
+      <th class ="colspan-1">VAT</th>
+      <th class ="colspan-1">Amount</th>
+    </tr>
+  </thead>
+  
+
+ <tbody class ="fields" id="transacionType">
+    <%= f.fields_for :financial_transactions do |builder| %>
+    <%= render 'financial_transaction', f: builder %>
+ 
+    <% end %>
+  </tbody>
+  </table>
+
+<div class="actions">
+   
+       <%= link_to_add_row('Add Invoice Enrty', f, :financial_transactions, class: 'btn btn-warning') %>
+    </br></br>
+   <%= f.submit 'Add Transaction', class: 'btn btn-info'%>
+
+<%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
+  </div>
+<% end %>

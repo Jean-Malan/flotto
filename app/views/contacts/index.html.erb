@@ -1,0 +1,39 @@
+
+
+<br><br>
+<%= link_to 'New Contact', new_contact_path, class:'btn btn-warning' %>
+<center>
+<div class='card col-md-12'>
+<table class ='table'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address one</th>
+      <th>City</th>
+      <th>Zipcode</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td><%= link_to contact.name, edit_contact_path(contact) %></td>
+        <td><%= contact.address_one %></td>
+        <td><%= contact.city %></td>
+        <td><%= contact.state %></td>
+        <td><%= contact.phone %></td>
+        <td><%= contact.email %></td>
+
+        <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>
+
+</center>
+

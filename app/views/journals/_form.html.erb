@@ -1,0 +1,65 @@
+<% if notice %>
+    <p class= 'alert alert-success'><%= notice %></p>
+<% end %>
+
+
+<%= form_for(@journal) do |f| %>
+  <% if @journal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@journal.errors.count, "error") %> prohibited this journal from being saved:</h2>
+
+      <ul>
+      <% @journal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class ="card">
+   <div class="btn-group">
+  <div class="col-md-4 mb-3">
+    <%= f.label :reference %><br>
+    <%= f.text_field :reference, class: 'form-control input'   %>
+  </div>
+  <div class="col-md-4 mb-3">
+    <%= f.label :date %><br>
+    <%= f.date_select :date, class: 'form-control input'   %>
+  </div>
+  <div class="col-md-4 mb-6">
+    <%= f.label :description %><br>
+    <%= f.text_field :description, class: 'form-control input'   %>
+  </div>
+  
+  
+  </br></br> </br></br>
+  </div></div>
+  <div class ="card">
+  <div class="tbl-header">
+  <table class = "table">
+    <thead>
+    <tr>
+      <th class ="colspan-1"></th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Account</th>
+      <th class='colspan-1'>Debit</th>
+      <th class='colspan-1'>Credit</th>
+    </tr>
+  </thead>
+  <tbody class ="fields">
+    <%= f.fields_for :journal_entries do |builder| %>
+    <%= render 'journal_entry', f: builder %>
+    <% end %>
+  </tbody>
+ 
+  </table>
+  </div>
+  </div>
+  <div class="actions">
+   
+    <%= link_to_add_row('Add Row', f, :journal_entries, class: 'btn btn-warning') %>
+    </br></br>
+     <%= f.submit 'Create Journal', :class => 'btn btn-info' %> | <%= link_to 'Back', journals_path, class:"btn btn-default" %>
+
+  </div>
+<% end %>

@@ -1,0 +1,32 @@
+<% if notice %>
+    <p class= 'alert alert-success'><%= notice %></p>
+<% end %>
+</br></br></br>
+<%= link_to 'New Product', new_product_path, class:'btn btn-warning' %>
+</br></br>
+<div class="card">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Brand</th>
+      <th>Current Inventory</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to product.name, edit_product_path(product)%></td>
+        <td><%= product.brand ? product.brand : "No brand" %></td>
+        <td><%= product.current_stock %></td>
+        <td><%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>
+
+

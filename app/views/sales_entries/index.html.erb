@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Sales Entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Vat type</th>
+      <th>Account</th>
+      <th>Total price</th>
+      <th>Sale</th>
+      <th>Gl account</th>
+      <th>Vat amount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sales_entries.each do |sales_entry| %>
+      <tr>
+        <td><%= sales_entry.product_id %></td>
+        <td><%= sales_entry.description %></td>
+        <td><%= sales_entry.quantity %></td>
+        <td><%= sales_entry.price %></td>
+        <td><%= sales_entry.vat_type %></td>
+        <td><%= sales_entry.account_id %></td>
+        <td><%= sales_entry.total_price %></td>
+        <td><%= sales_entry.sale_id %></td>
+        <td><%= sales_entry.gl_account_id %></td>
+        <td><%= sales_entry.vat_amount %></td>
+        <td><%= link_to 'Show', sales_entry %></td>
+        <td><%= link_to 'Edit', edit_sales_entry_path(sales_entry) %></td>
+        <td><%= link_to 'Destroy', sales_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sales entry', new_sales_entry_path %>

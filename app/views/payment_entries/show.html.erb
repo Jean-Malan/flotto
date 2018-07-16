@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Transaction:</strong>
+  <%= @payment_entry.transaction_id %>
+</p>
+
+<%= link_to 'Edit', edit_payment_entry_path(@payment_entry) %> |
+<%= link_to 'Back', payment_entries_path %>

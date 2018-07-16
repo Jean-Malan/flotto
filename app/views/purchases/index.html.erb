@@ -1,0 +1,57 @@
+<% if notice %>
+    <p class= 'alert alert-success'><%= notice %></p>
+<% end %>
+</br>
+<%= link_to 'New Invoice', purchases_invoice_path,  class: "btn btn-primary col-md-4" %> <%= link_to 'Drafts', purchases_draft_index_path,  class: "btn btn-default pull-right" %><%= link_to 'Outstanding', purchases_paid_path,  class: "btn btn-danger pull-right" %><%= link_to 'Partially Paid', purchases_partially_paid_path,  class: "btn btn-warning pull-right" %><%= link_to 'Paid', purchases_paid_path,  class: "btn btn-success pull-right" %><%= link_to 'All', purchases_path,  class: "btn btn-info pull-right" %>  
+
+
+<br><br>
+<div class= "card">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Supplier</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @purchases.each do |purchase| %>
+      <tr>
+        <td><%= link_to purchase.date, purchase_path(purchase) %></td>
+        <td><%= purchase.contact_id ? purchase.contact.name : 'No customer'  %></td>
+        <td><%= "Inv #{purchase.id}" %></td>
+        
+        
+             <% purchase.amount  = 0 %>
+        <% @purchase_entry.each do |entry| %>
+        <% if purchase.id == entry.purchase_id %>
+         <% purchase.amount += entry.total_price.to_f %>
+          <% end %>
+           <% end %>
+           <td><%= purchase.amount %></td>
+      
+      
+             <td>    <% if purchase.purchases_type == 'invoice' %>
+            <%= link_to "Invoice", edit_purchase_path(purchase), class:"btn btn-success" %></td>
+           
+            <% else if purchase.purchases_type == 'draft' %>
+            <%= link_to "Draft", edit_purchase_path(purchase), class:"btn btn-danger" %>
+  
+             <% end %>
+             <% end %>
+      </td>   
+        <td><%= link_to "Edit", edit_purchase_path(purchase) %> | <%= link_to 'Delete', purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<br>
+
+

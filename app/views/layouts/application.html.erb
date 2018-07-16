@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Workspace</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+</head>
+ 
+  
+
+<div class = 'zoom'>
+ <% if params[:controller] != "user" %>
+<%= render 'layouts/navbar' %>
+<% end %>
+<body>
+
+<div class="content">
+  <div class="container-fluid">
+<%= yield %>
+</div>
+</div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</html>
