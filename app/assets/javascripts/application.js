@@ -29,6 +29,7 @@ $('#test_btn').on("click", function(){
 });
 });
 
+
  $(function() {
 
   $('form').on('click', '.remove_record', function(event) {
