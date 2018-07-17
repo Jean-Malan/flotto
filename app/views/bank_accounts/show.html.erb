@@ -40,8 +40,8 @@
 </tr>
        
 
-<div id='some_other_div' style="background-color:">
-  <table>
+<div id='some_other_div'  style="background-color:#fff">
+  <table class='col-md-12'>
    <div class='col-md-3'>
        <th><%= form_tag import_financial_transactions_path, multipart: true do %>
         <div class= 'btn btn-default btn-sm'><%= file_field_tag :file %></div>
@@ -67,7 +67,7 @@
     </div>
   </table>
 </div>
-<br /><br />
+<br />
 
  <div class="card">
  <div class="card-body table-responsive fold-table">
