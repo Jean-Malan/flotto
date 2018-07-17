@@ -29,39 +29,46 @@
      
 
 <tr>
-<th><%= link_to 'Add General Payment', new_payment_entry_path, class:'btn btn-danger' %> </th> <th><%= link_to 'New Invoice Receipts', new_receipt_entry_path, class:'btn btn-success' %></th>
-<th><%= form_tag import_financial_transactions_path, multipart: true do %>
+<th><%= link_to 'Add General Payment', new_payment_entry_path, class:'btn btn-danger' %> </th> <th><%= link_to 'New Invoice Receipts', new_receipt_entry_path, class:'btn btn-info' %></th><div class=" pull-right btn btn-default" id="test_btn">
+                                  <th>  <i class="material-icons">search</i>
+                                    <div class="ripple-container"></div>
+                                </button></th>
+                            </div>
+</tr>
+       
+ 
+                        <br />
+
+<div class="pull-right" id='some_other_div' style="background-color:">
+  <table>
+   <th><%= form_tag import_financial_transactions_path, multipart: true do %>
 <div class= 'btn btn-default btn-sm'><%= file_field_tag :file %></div>
 <%= submit_tag 'Import CSV', :class => 'btn btn-default btn-sm'%>
-<%end%> </th>
-</tr>
-
-
-
-
-<div class ="pull-right">
-<%= form_tag @bank_account_path, :method => 'get', :id => "transaction_search" do %>
-  <p>
-    <%= text_field_tag :search, params[:search], :class => 'btte' %>
-    <%= submit_tag "Search", :name => nil, :class => 'btn btn-wwhite' %>
-  </p>
-<% end %>
+<%end%> 
+    <%= form_tag bank_account_path, method: :get do %>
+    <th></th>
+      <th> Date From: </th><th><%= text_field_tag 'search[date_from]', @search.date_from, :class => 'form-control text-center' %></th>
+      <th>Date To:</th> <th><%= text_field_tag 'search[date_to]', @search.date_to, :class => 'form-control text-center' %></th>
+      <th> <%= submit_tag 'Search', :class => 'btn btn-sm btn-default' %></th>
+     <%end%>
+     <th></th>
+     <%= form_tag @bank_account_path, :method => 'get', :id => "transaction_search" do %>
+    <p>
+     <td>  <%= text_field_tag :searchref, params[:searchref], :class => 'form-control text-center', :placeholder => 'Search references' %></td>
+     <td><%= submit_tag "Search", :name => nil, :class => 'btn btn-sm btn-default' %></td>
+    </p>
+    <th></th>
+    <% end %>
+  </table>
 </div>
-<div class ="pull-right">
-<%= form_tag @bank_account_path, :method => 'get', :id => "transaction_search" do %>
-  <p>
-    <%= text_field_tag :searchref, params[:searchref], :class => 'btte', :placeholder => 'Search references' %>
-    <%= submit_tag "Search", :name => nil, :class => 'btn btn-wwhite' %>
-  </p>
-<% end %>
+<br /><br />
 
-</div>
 
 
 
  <div class="card">
  <div class="card-body table-responsive fold-table">
-   <table class="table table-hover fold-table"  id="transactionType">
+   <table class="table table-hover fold-table">
     <thead class="text-warning">
   
        <th scope="col">Date</th>
@@ -105,19 +112,12 @@
      <tr class="fold">
       <div class="fold-content">
           <%= simple_form_for(transaction, remote: true)  do |f| %>
-       <!--    <td>
-      <select class= 'btn btn-sm' "table" id="transactionType">
-       <option value = 'standard'>P</option>
-        <option value = 'standard'>S</option>
-        <option value = 'invoice'>I</option>
-       </select>
-    </td> -->
         <td> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td>
          <td><%= f.text_field :reference, label: false, class: 'form-control input', placeholder: 'reference'  %></td>
          <td><%= f.text_field :description, label: false, class: 'form-control input', placeholder: 'description'  %></td>
-        <td class = 'standard'><%= f.collection_select :gl_account_id, GlAccount.all, :id, :name, {:prompt => true},class:"btn dropdown-toggle" %></td>
-        <t class = 'invoice'><% f.collection_select :purchase_id, Purchase.all, :id, :invoice_number, {:prompt => true},class:"btn btn-sm invoice" %></t>
-        <td class = 'standard'><%= f.collection_select :vat_type, FinancialTransaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => true},class:"btn btn-sm standard"  %></td>
+        <td class = 'standard'><%= f.collection_select :gl_account_id, GlAccount.all, :id, :name, {:prompt => true},class:"btn btn-sm btn-default" %></td>
+        <t class = 'invoice'><% f.collection_select :purchase_id, Purchase.all, :id, :invoice_number, {:prompt => true},class:"btn btn-sm btn-default" %></t>
+        <td class = 'standard'><%= f.collection_select :vat_type, FinancialTransaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => true},class:"btn btn-sm btn-default"  %></td>
          <td> <%= f.text_field :total_amount, class: 'form-control input'  %></td>
          <td> <%= f.submit 'Update', class:'button'%></td> 
          
@@ -134,7 +134,6 @@
 <%= link_to 'Edit', edit_bank_account_path(@bank_account) %> |
 <%= link_to 'Back', bank_accounts_path %>
 
-<%= will_paginate @financial_transactions, class: "pagination pagination-primary" %>
 
 
 

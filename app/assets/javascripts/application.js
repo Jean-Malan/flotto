@@ -17,6 +17,18 @@
 
 // ------------------------- Nested fields 
   
+$(function(){
+  $(".fold-table tr.view").on("click", function(){
+    $(this).toggleClass("open").next(".fold").toggleClass("open");
+  });
+});
+
+$(function(){
+$('#test_btn').on("click", function(){
+   $('#some_other_div').toggle() 
+});
+});
+
  $(function() {
 
   $('form').on('click', '.remove_record', function(event) {
@@ -99,12 +111,6 @@ profile
   
 // Invoice Application 
 
-
-$(function(){
-  $(".fold-table tr.view").on("click", function(){
-    $(this).toggleClass("open").next(".fold").toggleClass("open");
-  });
-});
 
 // Invoice Fields // 
 

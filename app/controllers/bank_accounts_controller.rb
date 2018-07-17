@@ -6,15 +6,16 @@ class BankAccountsController < ApplicationController
   # GET /bank_accounts.json
   def index
     @bank_accounts = BankAccount.all.where("user_id =?", current_user.id)
-    @financial_transactions = FinancialTransaction.all.where("user_id =?", current_user.id)
+    @financial_transactions = FinancialTransaction.where("user_id =?", current_user.id)
   end
   
 
   # GET /bank_accounts/1
   # GET /bank_accounts/1.json
   def show
-    @total = FinancialTransaction.all
-    @financial_transactions = FinancialTransaction.all.where("user_id =?", current_user.id).paginate(:per_page => 35, :page => params[:page]).search(params[:search]).searchref(params[:searchref]).order('created_at DESC')
+    @total = FinancialTransaction.all.where("user_id =?", current_user.id)
+       @search = FinancialTransactionSearch.new(params[:search])
+    @financial_transactions = @search.scope.where("user_id =?", current_user.id).searchref(params[:searchref]).order('date DESC').paginate(:per_page => 35, :page => params[:page])
   end
   
   

@@ -9,19 +9,17 @@
   
 </head>
  
-  
 
-<div class = 'zoom'>
- <% if params[:controller] != "user" %>
 <%= render 'layouts/navbar' %>
-<% end %>
-<body>
 
-<div class="content">
+<body>
+ <div class="content">
   <div class="container-fluid">
 <%= yield %>
 </div>
 </div>
+
+
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
