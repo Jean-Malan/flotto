@@ -9499,8 +9499,8 @@ button:focus {
   background-color: #f34943;
   border-color: #f34943; }
   .btn-danger:hover {
-    color: #f34943;
-    background-color: #fff;
+    color: #fff;
+    background-color: #f34943;
     border-color: #f34943; }
   .btn-danger:focus, .btn-danger.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(243, 73, 67, 0.5);
@@ -12126,9 +12126,12 @@ textarea {
   float: left;
   width: 20%;
   margin: 9px 0 0; }
-
+  
+.btn .btn-warning .btn-round {
+  border-radius: 50%; }
+  
 .form-file-upload .input-group-btn:last-child > .btn-round {
-  border-radius: 30px; }
+  border-radius: 50%; }
 
 .form-file-upload .input-group-btn .btn {
   margin: 0; }

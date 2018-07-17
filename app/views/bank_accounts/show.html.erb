@@ -29,42 +29,47 @@
      
 
 <tr>
-<th><%= link_to 'Add General Payment', new_payment_entry_path, class:'btn btn-danger' %> </th> <th><%= link_to 'New Invoice Receipts', new_receipt_entry_path, class:'btn btn-info' %></th><div class=" pull-right btn btn-default" id="test_btn">
-                                  <th>  <i class="material-icons">search</i>
-                                    <div class="ripple-container"></div>
-                                </button></th>
-                            </div>
+<th><%= link_to 'Add General Payment', new_payment_entry_path, class:'btn btn-danger' %> </th> 
+<th><%= link_to 'New Invoice Receipts', new_receipt_entry_path, class:'btn btn-info' %></th><th>
+</th> <div class=" btn btn-warning btn-round" id="test_btn">
+       <i class="material-icons">menu_vert</i>
+        <div class="ripple-container"></div>
+            </div>
+            </th>
+           
 </tr>
        
  
                         <br />
 
-<div class="pull-right" id='some_other_div' style="background-color:">
+<div id='some_other_div' style="background-color:">
   <table>
-   <th><%= form_tag import_financial_transactions_path, multipart: true do %>
-<div class= 'btn btn-default btn-sm'><%= file_field_tag :file %></div>
-<%= submit_tag 'Import CSV', :class => 'btn btn-default btn-sm'%>
-<%end%> 
-    <%= form_tag bank_account_path, method: :get do %>
-    <th></th>
-      <th> Date From: </th><th><%= text_field_tag 'search[date_from]', @search.date_from, :class => 'form-control text-center' %></th>
-      <th>Date To:</th> <th><%= text_field_tag 'search[date_to]', @search.date_to, :class => 'form-control text-center' %></th>
-      <th> <%= submit_tag 'Search', :class => 'btn btn-sm btn-default' %></th>
-     <%end%>
-     <th></th>
+   <div class='col-md-3'>
+       <th><%= form_tag import_financial_transactions_path, multipart: true do %>
+        <div class= 'btn btn-default btn-sm'><%= file_field_tag :file %></div>
+        <%= submit_tag 'Import CSV', :class => 'btn btn-info btn-sm'%>
+       <%end%> 
+   </div>
+   <div class='col-md-3'>
+      <%= form_tag bank_account_path, method: :get do %>
+      <th class='btn btn-white'></th>
+        <th> <center>Date From: </th><th><%= text_field_tag 'search[date_from]', @search.date_from, :class => 'form-control text-center' %></center></th>
+        <th><center>Date To:</th> <th><%= text_field_tag 'search[date_to]', @search.date_to, :class => 'form-control text-center' %></center></th>
+        <th><center> <%= submit_tag 'Search', :class => 'btn btn-sm btn-info' %></center></th>
+       <%end%>
+     </div>
+      <th class='btn btn-white'></th>
+     <div class='col-md-3'>
      <%= form_tag @bank_account_path, :method => 'get', :id => "transaction_search" do %>
     <p>
      <td>  <%= text_field_tag :searchref, params[:searchref], :class => 'form-control text-center', :placeholder => 'Search references' %></td>
-     <td><%= submit_tag "Search", :name => nil, :class => 'btn btn-sm btn-default' %></td>
+     <td><%= submit_tag "Search", :name => nil, :class => 'btn btn-sm btn-info' %></td>
     </p>
-    <th></th>
     <% end %>
+    </div>
   </table>
 </div>
 <br /><br />
-
-
-
 
  <div class="card">
  <div class="card-body table-responsive fold-table">
