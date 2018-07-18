@@ -28,9 +28,9 @@
     -->
             <div class="logo">
                 <a href="" class="simple-text logo-normal">
-                     <% if user_signed_in? %>
-                    Work Station (<%= current_user.id %>)
-                    <% end %>
+                     
+                    Work Station <% if user_signed_in? %>(<%= current_user.id %>)<% end %>
+                    
                      Work Station 
                 </a>
             </div>
