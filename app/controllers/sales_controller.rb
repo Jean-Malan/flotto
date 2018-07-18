@@ -3,6 +3,9 @@ class SalesController < ApplicationController
     before_action :authenticate_user!
 
   def index
+     @sale = Sale.new
+    @sale.sales_entries.build
+    @sale.user_id = current_user.id
     @sales = Sale.all.where("user_id =?", current_user.id)
     @sale_entry = SalesEntry.all.where("user_id =?", current_user.id)
   end

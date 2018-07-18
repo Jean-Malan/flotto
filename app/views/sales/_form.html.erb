@@ -26,9 +26,9 @@
    <th> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td></th>
    
    <th>  <%= f.label :customer_id %></th>
-      <th><%= f.collection_select(:contact_id, Contact.all, :id, :name, {:prompt => true},  class:"btn bt-default ml-auto")  %></th>
+      <th><%= f.collection_select(:contact_id, Contact.all, :id, :name, {:prompt => true},  class:"form-control")  %></th>
      <th> <strong><%= f.label :sales_type%> </strong></th>
-     <th><%=  f.select :sales_type, Sale.sales_types.keys, {}, class: 'btn btn-default'   %></th>
+     <th><%=  f.select :sales_type, Sale.sales_types.keys, {}, class: 'form-control'   %></th>
      <tr><center>
     <th>  <%= f.label :due_date %></th>
    <th> <%= f.date_field :due_date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </th>

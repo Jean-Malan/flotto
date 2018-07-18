@@ -12,22 +12,23 @@
                                      </div> 
     <div class="card-text">
   <form class="needs-validation" novalidate>
-  <table class = "table" id="transactionType">
+    <table class = "table" id="transactionType">
     <thead>
     <tr>
       <th class ="colspan-1"></th>
+      <th class ="colspan-1">Transaction Type</th>
       <th class ="colspan-1">Date</th>
        <th class ="colspan-1">Description</th>
       <th class ="colspan-1">Reference</th>
        <th class ="colspan-1">Bank</th>
       <th class ="colspan-1">Account</th>
-       <th class ="colspan-1">Vat</th>
+      <th class ="colspan-1">VAT</th>
       <th class ="colspan-1">Amount</th>
     </tr>
   </thead>
   
 
- <tbody class ="fields">
+ <tbody class ="fields" id="transacionType">
     <%= f.fields_for :financial_transactions do |builder| %>
     <%= render 'financial_transaction', f: builder %>
  

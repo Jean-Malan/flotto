@@ -1,6 +1,9 @@
 
 <br>
-<%= link_to 'New Bank account', new_bank_account_path, class: "btn btn-primary col-md-3" %>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Add Bank Account
+</button>
 
 
 <br><br>
@@ -47,5 +50,55 @@
   </tbody>
 </table>
 
-<br>
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+<%= form_for(@bank_account) do |f| %>
+  <% if @bank_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bank_account.errors.count, "error") %> prohibited this bank_account from being saved:</h2>
+
+      <ul>
+      <% @bank_account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.number_field :code, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :opening_balance %><br>
+    <%= f.text_field :opening_balance, class: 'form-control' %>
+  </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= f.submit 'Submit', :class => 'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

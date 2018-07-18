@@ -9,16 +9,16 @@
 <div class ="pull-left">
 <%= form_tag @bank_account_path, :method => 'get', :id => "transaction_search" do %>
   <p>
-    <%= text_field_tag :search, params[:search], :class => 'btte col-md-6' %>
-    <%= submit_tag "Search", :name => nil, :class => 'btn btn-wwhite' %>
+    <%= text_field_tag :search, params[:search], :class => 'form-control col-md-6' %>
+    <%= submit_tag "Search", :name => nil, :class => 'form-control' %>
   </p>
 <% end %>
 </div>
 <div class ="pull-left">
 <%= form_tag @bank_account_path, :method => 'get', :id => "transaction_search" do %>
   <p>
-    <%= text_field_tag :searchref, params[:searchref], :class => 'btte col-md-6', :placeholder => 'Search references' %>
-    <%= submit_tag "Search", :name => nil, :class => 'btn btn-wwhite' %>
+    <%= text_field_tag :searchref, params[:searchref], :class => 'form-control col-md-6', :placeholder => 'Search references' %>
+    <%= submit_tag "Search", :name => nil, :class => 'form-controle' %>
   </p>
 <% end %>
 </div>

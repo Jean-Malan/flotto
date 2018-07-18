@@ -5,6 +5,8 @@ class BankAccountsController < ApplicationController
   # GET /bank_accounts
   # GET /bank_accounts.json
   def index
+    @bank_account = BankAccount.new
+    @bank_account.user_id = current_user.id
     @bank_accounts = BankAccount.where("user_id =?", current_user.id)
     @financial_transactions = FinancialTransaction.where("user_id =?", current_user.id)
   end

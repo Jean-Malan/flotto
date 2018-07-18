@@ -4,6 +4,9 @@
 </br>
 <%= link_to 'New Invoice', new_sale_path,  class: "btn btn-primary col-md-4" %> <%= link_to 'Drafts', sales_draft_index_path,  class: "btn btn-default pull-right" %><%= link_to 'Outstanding', sales_unpaid_path,  class: "btn btn-danger pull-right" %><%= link_to 'Partially Paid', sales_partially_paid_path,  class: "btn btn-warning pull-right" %><%= link_to 'Paid', sales_paid_path,  class: "btn btn-success pull-right" %><%= link_to 'All', sales_path,  class: "btn btn-info pull-right" %>  
 
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
+  Add sale
+</button>
 
 <br><br>
 <div class= "card">
@@ -50,3 +53,94 @@
 <br>
 
 
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+
+<div class ="form-fields">
+<%= simple_form_for(@sale) do |f| %>
+  <% if @sale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this purchase from being saved:</h2>
+
+      <ul>
+      <% @sale.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<center>
+<div class= "card col-md-12">
+  <div class="card-header card-header-info">
+                                    <h4 class="card-title">Edit Invoice</h4>
+                                    <p class="card-category"></p>
+                                     </div> 
+   <table class = "table">
+    <thead>
+      <tr><center>
+    <%= f.hidden_field :balance, :value => 0%>
+    <th>  <%= f.label :date %><br></th>
+   <th> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td></th>
+   
+   <th>  <%= f.label :customer_id %></th>
+      <th><%= f.collection_select(:contact_id, Contact.all, :id, :name, {:prompt => true},  class:"form-control")  %></th>
+     <th> <strong><%= f.label :sales_type%> </strong></th>
+     <th><%=  f.select :sales_type, Sale.sales_types.keys, {}, class: 'form-control'   %></th>
+     <tr><center>
+    <th>  <%= f.label :due_date %></th>
+   <th> <%= f.date_field :due_date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </th>
+     <th>  <%= f.label :invoice_number %></th><th><%=  f.text_field :invoice_number, class: 'form-control' %></th>
+    
+   </tr></center>
+   </tr></center>
+   <th></th>
+  </div>
+  </table>
+  
+  <br />
+
+ 
+   <table class = "table" id="transactionType">
+    <thead>
+    <tr>
+        <center>
+      <th class ="col col-lg-1"></th>
+      <th class ="colspan-1"><center>Product</center></th>
+      <th class ="colspan-1"><center>Description</center></th>
+      <th class ="colspan-1"><center>Account</center></th>
+      <th class ="colspan-1"><center>Vat</center></th>
+      <th class ="col col-lg-1"><center>Quantity</center></th>
+      <th class ="col col-lg-2"><center>Amount</center></th>
+      <th class ="col col-lg-2"><center>Total</center></th>
+      </center>
+    </tr>
+  </thead>
+    
+
+      <div class>
+ <tbody class ="fields">
+    <%= f.fields_for :sales_entries do |builder| %>
+    <%= render 'sales_entry', f: builder %>
+    <% end %>
+    </div>
+  </div>
+  </tbody>
+  
+  </table>
+  <%= link_to_add_row('Add line', f, :sales_entries, class: 'btn btn-warning') %>
+  <br /> <br />
+   <%= f.text_area :notes, class: 'form-control', placeholder: 'Notes' %> 
+ 
+ </center>
+  <center>
+    <table>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <%= f.submit 'Create Invoice', :class => 'btn btn-success' %> 
+           <% end %>
+           </table>
+    </div>
+    </div>
+  </div>
+    </center>
