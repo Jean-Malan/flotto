@@ -6,6 +6,9 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all.where("user_id =?", current_user.id)
+    
+     @product = Product.new
+    @product.user_id = current_user.id
   end
 
   # GET /products/1
