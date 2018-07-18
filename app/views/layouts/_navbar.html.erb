@@ -28,7 +28,10 @@
     -->
             <div class="logo">
                 <a href="" class="simple-text logo-normal">
+                    <% if current_user? %>
                     Work Station (<%= current_user.id %>)
+                    <% end %>
+                     Work Station 
                 </a>
             </div>
  
