@@ -119,6 +119,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
-      params.require(:sale).permit(:id, :number, :title, :address, :date, :due_date, :vat_total, :balance, :amount, :notes, :customer_id, :account_type, :sales_type, :contact_id, :user_id, sales_entries_attributes: [:user_id, :id, :sale_id, :invoice_number, :product_id, :description, :vat_amount, :quantity, :price, :vat_type, :account_id, :total_price, :gl_account_id ])
+      params.require(:sale).permit(:id, :invoice_number, :number, :title, :address, :date, :due_date, :vat_total, :balance, :amount, :notes, :customer_id, :account_type, :sales_type, :contact_id, :user_id, sales_entries_attributes: [:user_id, :id, :sale_id, :invoice_number, :product_id, :description, :vat_amount, :quantity, :price, :vat_type, :account_id, :total_price, :gl_account_id ])
     end
 end

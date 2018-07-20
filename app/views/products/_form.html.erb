@@ -11,17 +11,29 @@
     </div>
   <% end %>
 
-  <div class="form-fields">
-  <center>  <%= f.text_field :name, class: 'form-control', placeholder: "Product name"  %></center><br />
-   <center>  <%= f.number_field :code, class: 'form-control', placeholder: "Product code"   %></center><br />
-    <center> <%= f.text_field :brand, class: 'form-control', placeholder: "Product brand"   %></center><br />
-    <center> <%= f.text_field :tag, class: 'form-control', placeholder: "Product tag"   %></center><br />
-    <center> <%= f.text_field :price, class: 'form-control', placeholder: "Product price (Exc Vat)"   %></center><br />
-    <center> <%= f.text_field :quantity, class: 'form-control', placeholder: "quantity"   %></center><br />
-    <center> <%= f.number_field :purchase_entry_id, class: 'form-control', placeholder: "Product name"   %></center><br />
-    <center> <%= f.text_field :opening_stock, class: 'form-control', placeholder: "Opening Stock Quantity"   %></center><br />
-    <center> <%= f.text_field :current_stock, class: 'form-control', placeholder: "Current Stock Quantity"   %></center><br />
+  <div class="form-control">
+    <tbody class="text-center">
+        <tr>
+  <td><center>  <%= f.text_field :name, class: 'form-control', placeholder: "Product name"  %></center></td>
+  </tr> <tr>
+    <td><center>  <%= f.number_field :code, class: 'form-control', placeholder: "Product code"   %></center></td>
+    </tr> <tr>
+  <td>  <center> <%= f.text_field :brand, class: 'form-control', placeholder: "Product brand"   %></td></center>
+  </tr> <tr>
+    <td> <center> <%= f.text_field :tag, class: 'form-control', placeholder: "Product tag"   %></center></td><br />
+    </tr> <tr>
+   <td> <center> <%= f.text_field :price, class: 'form-control', placeholder: "Product price (Exc Vat)"   %></td></center>
+   </tr> <tr>
+    <td> <center> <%= f.text_field :quantity, class: 'form-control', placeholder: "quantity"   %></center></td>
+    </tr> <tr>
+    <td> <center> <%= f.number_field :purchase_entry_id, class: 'form-control', placeholder: "Product name"   %></td></center>
+    </tr> <tr>
+    <td> <center> <%= f.text_field :opening_stock, class: 'form-control', placeholder: "Opening Stock Quantity"   %></td></center>
+    </tr> <tr>
+    <td> <center> <%= f.text_field :current_stock, class: 'form-control', placeholder: "Current Stock Quantity"   %></td></center>
+    </tr>
   </div>
+  </table>
   <div class="actions">
     <%= f.submit "Add product", :class => "btn btn-info" %>
   </div>

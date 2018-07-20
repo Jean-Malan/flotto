@@ -136,7 +136,7 @@
 
 <%= link_to 'Edit', edit_bank_account_path(@bank_account) %> |
 <%= link_to 'Back', bank_accounts_path %>
-
+<%= will_paginate @financial_transactions, :class => 'pagination-lg page-item' %>
 
 
 

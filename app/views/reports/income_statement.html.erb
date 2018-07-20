@@ -51,9 +51,14 @@
         <td> </td>
         <% @sales_income = 0 %>
         <% @sales_income += account.financial_transactions.sum(:total_amount).round(2) + account.journal_entries.sum(:amount).round(2) %>
-        <% @sales_income += account.sales_entries.sum(:total_price) %>
+        <% @sale_entry.each do |sale_entry| %>
+        <% if sale_entry.sale(:sales_type) == 0 && sales_entries.gl_account_id(:account_type) == 7 %>
+        <% @sales_total = sale.sales_entries.sum(:price) %>
+        <% @sales_income += @sales_total %>
     <% end %>
      <% end %>
+      <% end %>
+       <% end %>
              <td><%= @sales_income %></td>
          
       </tr>

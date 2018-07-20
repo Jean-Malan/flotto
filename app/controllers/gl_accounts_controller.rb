@@ -6,6 +6,8 @@ class GlAccountsController < ApplicationController
   # GET /gl_accounts.json
   def index
     @gl_accounts = GlAccount.all.where("user_id =?", current_user.id)
+        @gl_account = GlAccount.new
+    @gl_account.user_id = current_user.id
   end
 
   # GET /gl_accounts/1

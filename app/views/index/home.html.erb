@@ -11,7 +11,7 @@
                                     <h3 class="card-title text-white"> <strong><% @totals = 0 %>
                                                             <% @sale_total.each do |sales| %>
                                                             <% if sales.sales_type = "invoice"%>
-                                                            <% @totals += sales.amount.round(2) %>
+                                                            <% @totals += sales.amount.to_f.round(2) %>
                                                             <% end %>
                                                             <% end %>
                                                             R<%= @totals %></strong></h3>

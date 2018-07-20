@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :account_type %><br>
-    <%= f.input :account_type, as: :select, label: " '", collection: GlAccount.account_types.map { |key, value| [key.humanize, key] } %>
+    <%= f.input :account_type, as: :select, label: " '", collection: GlAccount.account_types.map { |key, value| [key.humanize, key] }, class: 'form-control' %>
   </div>
   <div class="actions">
     <%= f.submit %>

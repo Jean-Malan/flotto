@@ -1,137 +1,185 @@
 <p id="notice"><%= notice %></p>
 
-<center>
 
-<div class= "card col-md-10" style="background-color:#fff;">
- 
-  <% if @sale.sales_type == "invoice" %>
-                <div class="card-header card-header-success">
-                    <h4 class="card-title">sale</h4>
-                      <p class="card-category"></p>
-                      </div> 
-                              <% else if @sale.sales_type == "draft" %>
-                               <div class="card-header card-header-danger">
-                                 <h4 class="card-title">Draft</h4>
-                                   <p class="card-category"></p>
-                                           </div> 
-                                           <% else if @sale.sales_type == "Quote" %>
-                                             <div class="card-header card-header-warning">
-                                               <h4 class="card-title">Draft</h4>
-                                                 <p class="card-category"></p>
-                                           </div> 
-                                     <% end %>
-                                     <% end %>
-                                     <% end %>
-   <table class = "table table-striped">
-    <thead >
-      <tr><center>
-    <th><strong>Date:</strong> </th>
-   <th>  <%= @sale.date %> </td></th>
-      <th><strong>Total:</strong> </th>
-   <th>  <%= @sale.amount.round(2) %> </td></th>
-   <th> <strong>Invoice Type:</strong><br></th>
-    <th>  <%= @sale.sales_type %></th>
-     <th> <strong>Customer:</strong><br></th>
-    <th><%= @sale.contact_id ? @sale.contact.name : '' %> </br>
-       <%= @sale.contact_id ? @sale.contact.address_one : '' %> </br>
-      <%= @sale.contact_id ? @sale.contact.city : '' %> </br>
-   </tr></center>
-  </div>
- </div>
-
-</div>
-  </br></br></br>
-  
-<div class= "card">
-
-  <table class = "table table-striped">
-    <thead style="background-color:#fff;">
-    <tr>
-      <th>Description</th>
-       <th>Product</th>
-      <th>Account</th>
-      <th>Vat</th>
-      <th>Quantity</th>
-      <th>Amount</th>
-      <th>Total</th>
-
-
-  </thead>
-        <h3><left>Invoice Items</left></h3>
-      <tbody style="background-color:#fff;">
-       <% @sale_entry.each do |entry| %>
-            <% if entry.sale_id == @sale.id %>
-
-               <td>  <%= entry.description %></td>
-               <td> <%= entry.product ? entry.product.name : ' ' %></td>
-               <td> <%= entry.gl_account ? entry.gl_account.name : ' ' %></td>
-                  <td> <%= entry.vat_amount.to_f.round(2) %></td>
-               <td> <%= entry.quantity %></td>
-               <td> <%= entry.price.to_f.round(2) %></td>
-                  <% if entry.quantity.to_i > 0 %>
-                     <% @total = 0 %>
-                     <% @total += (entry.quantity.to_f.round(2)) * (entry.price.to_f.round(2) + entry.vat_amount.to_f.round(2)) %>
-                     <td><strong><%= @total.round(2) %></strong></td>
-                     </tr>
-                 <% else %>
-                     <td><strong><%= entry.price %></strong></td>
-              </tr>
-                <% end %>
-        <% end %>
-       <% end %>
-   </table>
-   
-   <h3 class='pull-left'>Payments</h3>
-   
-   <table class="table table-striped">
-                  <thead style="background-color:#fff;">
-                  <th class ='col-md-4'><strong>Date</strong></th>
-                  <th class ='col-md-4'><strong>Description</strong></th>
-                  <th class ='col-md-4'><strong>Reference</strong></th>
-                  <th class ='col-md-4'><strong>Amount</strong></th>
-              
-     <tbody>
-                  <% @transactions.each do |transaction| %>
-                  <% if transaction.sale_id == @sale.id %>
-              
-                  <td class ='col-md-4'><%= link_to transaction.date, edit_financial_transaction_path(transaction) %></td>
-                   <td class ='col-md-4'><%= transaction.description %></td>
-                  <td class ='col-md-4'><%=transaction.reference %></td>
-                  <td class ='col-md-4'><%= transaction.total_amount %></td>
-                  </tr>
-                  
-             <% end %>
-             <% end %>
-              
-      </tbody>
-      </table>
-      
-      
-      <br><br><br><br> <br><br><br><br>
-      <table class ="table table-striped">
-      <tbody style="background-color:#fff;">
-        <tr style="background-color: #fff;">
-       <td class ='col-md-3'><strong><h3>Balance:</h3></strong></td>
-        <td class ='col-md-3'></td>
-        <td class ='col-md-3'></td>
-         <td class ='col-md-3'></td>
-
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card-header">
+                                    <!-- Logo & title -->
+                                    <div class="clearfix">
+                                        <div class="float-left">
+                                            <img src="assets/images/logo_dark.png" alt="" height="20">
+                                        </div>
+                                        <div class="float-right">
+                                            <h4 class="m-0 d-print-none"></h4>
+                                        </div>
+                                      </div>
+    
         
-             <td class ='col-md-3'><strong><h3><% @total_balance = 0 %>
-                         <% @total_balance = @sale.amount - @sale.financial_transactions.sum(:total_amount) %> 
-                         <%= @total_balance.round(2)  %></h3></strong></td>
-       
-            </tr>
-          </tbody>
-          
-  </table>
-  </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h6>Invoice Details</h6>
+                                            <address>
+                                                   <h6>Date:  <%= @sale.date %></h6>
+                                               <h6>Inv Number: <%= @sale.invoice_number %></h6>
+                                               <h6>Inv Amount: <%= @sale.amount %></h6>
+                                                <abbr title="Phone">P:</abbr> 
+                                            </address>
+                                        </div> <!-- end col -->
+        
+                                        <div class="col-md-6">
+                                            <address class="line-h-24 shift-right">
+                                                 <h6>Billing Address</h6>
+                                                <%= @sale.contact_id ? @sale.contact.name : '' %> </br>
+                                               <%= @sale.contact_id ? @sale.contact.address_one : '' %> </br>
+                                              <%= @sale.contact_id ? @sale.contact.city : '' %> </br>
+                                                <abbr title="Phone">P:</abbr> (123) 456-789
+                                            </address>
+                                        </div> <!-- end col -->
+                                    </div> 
+                                    <!-- end row -->
+        
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table mt-4 table-centered">
+                                                    <thead class='thead-dark'>
+                                                        <br /><br /><br />
+                                                        <h3><strong>Invoice Items</strong></h3>
+                                                    <tr>  <th style="width: 10%"><strong>Description</strong></th>
+                                                              <th style="width: 10%"><strong>Account</strong></th>
+                                                              <th style="width: 10%"><strong>Quantity</strong></th>
+                                                              <th style="width: 10%"><strong>Vat</strong></th>
+                                                              <th style="width: 10%"><strong>Net Price</strong></th>
+                                                              <th style="width: 10%"><strong>Gross Price</strong></th>
+                                                              <th style="width: 10%"><strong>Total</strong></th>
+                                                    </tr></thead>
+                                                    <tbody>
+                                                    <tr>
+                                                               <% @sale_entry.each do |entry| %>
+                                                               <% if entry.sale_id == @sale.id %>
+                                                        <td>
+                                                            <b><%= entry.description %></b> <br/>
+                                                            <%= entry.product ? entry.product.name : ' ' %>
+                                                        </td>
+                                                        <td> <%= entry.gl_account ? entry.gl_account.name : ' ' %></td>
+                                                        <td> <%= entry.quantity %></td>
+                                                        <td> <%= entry.vat_amount.to_f.round(2) %></td>
+                                                        <td> <%= entry.net_price.to_f.round(2) %></td>
+                                                        <td> <%= entry.price.to_f.round(2) %></td>
+                                                     <% if entry.quantity.to_i > 0 %>
+                                                     <% @total = 0 %>
+                                                     <% @total += (entry.quantity.to_f.round(2)) * (entry.price.to_f.round(2)) %>
+                                                     <td><strong><%= @total.round(2) %></strong></td>
+                                                     </tr>
+                                                        <% else %>
+                                                     <td><strong><%= entry.price %></strong></td>
+                                                         </tr>
+                                                        <% end %>
+                                                        <% end %>
+                                                       <% end %>
+                                                    </tr>
+        
+                                                    </tbody>
+                                                </table>
+                                            </div> <!-- end table-responsive -->
+                                        </div> <!-- end col -->
+                                    </div>
+                                    
+                                    
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="clearfix pt-5">
+                                                <h6 class="text-muted">Notes:</h6>
+        
+                                                <small class="text-muted">
+                                                    <%= @sale.notes %>
+                                                </small>
+                                            </div>
+                                        </div> <!-- end col -->
+                                        <div class="col-5">
+                                            <div class="pull-right">
+                                                <br /> <br /> <br />
+                                                <p><b>Inv total: </b> <span><%= number_to_currency(@sale.amount, :unit => 'R')%></span></p>
+                                                <p><b>Payed: </b> <span><%= number_to_currency(@sale.balance, :unit => 'R')%> </span></p>
+                                                <p><b>Outstanding:</b>  <span><%= number_to_currency(@sale.amount - @sale.balance, :unit => 'R')%></span></p>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div> <!-- end col -->
+                                    </div>
+                                    <!-- end row -->
+        
+                                    <div class="mt-4 mb-1">
+                                        <div class="text-right d-print-none">
+                                            <a href="javascript:window.print()" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-printer mr-1"></i> Print</a>
+                                            <a>  <%= link_to 'Edit', edit_sale_path(@sale), class: "btn btn-default" %></a> 
+                                             <a> <%= link_to 'Back', sales_path ,class:"btn btn-default"%></a>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                            </div>
+        
+                        </div>
+                        
+                        
+                                 
+                                 <div class=" btn btn-warning btn-round" id="test_btn">
+                                   <i class="material-icons">filter_list</i>
+                                    <div class="ripple-container"></div>
+                                        </div>
+
+                                 
+                                 <div id='some_other_div'  style="background-color:#fff">
+                                    <div class="row">
+                                        <div class="col-md-10 card-header">
+                                            <div class="table-responsive table-light fold-table">
+                                                <table class="table mt-4 table-centered table-light fold-table">
+                                                    <thead>
+                                                    <tr class ='view'>
+                                                      <h3 class='center'><strong>Transactions</strong></h3>  
+                                                      </tr>
+                                                          <tr class="fold"> 
+                                                          <div class="fold-content">
+                                                            <th class ='col-md-4'><strong>Date</strong></th>
+                                                              <th class ='col-md-4'><strong>Description</strong></th>
+                                                              <th class ='col-md-4'><strong>Reference</strong></th>
+                                                              <th class ='col-md-4'><strong>Amount</strong></th>
+                                                    </tr></thead>
+                                                    <tbody>
+                                                   <tr>
+                                                            <% @transactions.each do |transaction| %>
+                                                          <% if transaction.sale_id == @sale.id %>
+                                                          <td class ='col-md-4'><%= link_to transaction.date, edit_financial_transaction_path(transaction) %></td>
+                                                           <td class ='col-md-4'><%= transaction.description %></td>
+                                                          <td class ='col-md-4'><%=transaction.reference %></td>
+                                                          <td class ='col-md-4'><%= transaction.total_amount %></td>
+                                                          </tr>
+                                                          
+                                                     <% end %>
+                                                     <% end %>
+                                                     </div>
+                                                     </div>
+                                                    </tr>
+        
+                                                    </tbody>
+                                                </table>
+                                            </div> <!-- end table-responsive -->
+                                        </div> <!-- end col -->
+                                    </div>
+                                    
+                                    
+                                    
+                                    <!-- end row -->
+        
+
+                        <!-- end row -->        
+
+                    </div> <!-- end container-fluid-->
+                </div> <!-- end contant-->
+            </div>
+            <!-- End Page Content-->
+            
+              </div>
   <%= link_to 'Edit', edit_sale_path(@sale), class: "btn btn-default" %> |
 <%= link_to 'Back', sales_path ,class:"btn btn-default"%>
  </center>
-
- 
- 
-
-
-

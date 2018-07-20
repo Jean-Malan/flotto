@@ -18,8 +18,21 @@ class ReportsController < ApplicationController
    @gl_accounts = GlAccount.all.where("user_id =?", current_user.id)
    @journal_entries = JournalEntry.all.where("user_id =?", current_user.id)
    @purchases = Purchase.all.where("user_id =?", current_user.id)
+   @sale = Sale.all.where("user_id =?", current_user.id).where("sales_type =?", 0)
+   @sale_entry = SalesEntry.all.where("user_id =?", current_user.id)
+
+   
+   
+  end 
+  
+    def balance_sheet
+   @reports = Report.all.where("user_id =?", current_user.id)
+   @gl_accounts = GlAccount.all.where("user_id =?", current_user.id)
+   @journal_entries = JournalEntry.all.where("user_id =?", current_user.id)
+   @purchases = Purchase.all.where("user_id =?", current_user.id)
    @sale = Sale.all.where("user_id =?", current_user.id)
   end 
+  
   # GET /reports/new
   def new
     @report = Report.new
