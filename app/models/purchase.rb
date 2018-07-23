@@ -1,7 +1,7 @@
 class Purchase < ActiveRecord::Base
   before_save :journal_params
     belongs_to :user 
-    belongs_to :contact_id
+    belongs_to :contact
     has_many :financial_transactions
     belongs_to :gl_account
     has_many :purchase_entries
