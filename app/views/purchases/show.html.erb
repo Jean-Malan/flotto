@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+    <p class= 'alert alert-success'><%= notice %> <a href="#" data-dismiss="alert" class="close">×</a></p>
+<% end %>
 
 
                         <div class="row">
@@ -99,9 +101,9 @@
                                         <div class="col-5">
                                             <div class="pull-right">
                                                 <br /> <br /> <br />
-                                                <p><b>Inv total: </b> <span><%= number_to_currency(@purchase.amount, :unit => 'R')%></span></p>
-                                                <p><b>Payed: </b> <span><%= number_to_currency(@purchase.balance, :unit => 'R')%> </span></p>
-                                                <p><b>Outstanding:</b>  <span><%= number_to_currency(@purchase.amount - @purchase.balance, :unit => 'R')%></span></p>
+                                                <p><b>Inv total: </b> <span><%= number_to_currency(@purchase.amount.to_f, :unit => 'R')%></span></p>
+                                                <p><b>Payed: </b> <span><%= number_to_currency(@purchase.balance.to_f, :unit => 'R')%> </span></p>
+                                                <p><b>Outstanding:</b>  <span><%= number_to_currency(@purchase.amount.to_f - @purchase.balance.to_f, :unit => 'R')%></span></p>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div> <!-- end col -->
