@@ -114,7 +114,7 @@
       
      <tr class="fold">
       <div class="fold-content">
-          <%= simple_form_for(transaction, remote: true)  do |f| %>
+          <%= simple_form_for(transaction, remote: false)  do |f| %>
         <td> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td>
          <td><%= f.text_field :reference, label: false, class: 'form-control input', placeholder: 'reference'  %></td>
          <td><%= f.text_field :description, label: false, class: 'form-control input', placeholder: 'description'  %></td>
