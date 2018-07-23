@@ -1,5 +1,5 @@
 class Purchase < ActiveRecord::Base
-  before_save :journal_params
+  before_save :update_amount
     belongs_to :user 
     belongs_to :contact
     has_many :financial_transactions
@@ -24,7 +24,7 @@ class Purchase < ActiveRecord::Base
     update(balance: financial_transactions.sum(:total_amount))
   end
 
-  def journal_params
+  def update_amount
       self.amount  = purchase_entries
                       .find_all(&:price?)
                       .sum { |journal_entry| journal_entry.price * journal_entry.quantity  }
@@ -33,5 +33,6 @@ class Purchase < ActiveRecord::Base
                       .find_all(&:vat_amount?)
                       .sum { |journal_entry| journal_entry.vat_amount * journal_entry.quantity }
   end
+  
   
 end

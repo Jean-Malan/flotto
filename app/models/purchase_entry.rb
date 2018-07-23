@@ -1,6 +1,6 @@
 class PurchaseEntry < ActiveRecord::Base
-    validate :define_total_price
-    before_save :format_rounding,  :format_vat  
+    before_save :format_rounding,  :format_vat, :define_total_price
+    
        belongs_to :user 
        belongs_to :gl_account
        belongs_to :bank_account
@@ -27,11 +27,13 @@ class PurchaseEntry < ActiveRecord::Base
    
     def format_vat
         if self.vat_type ==  "standard_rate_purchases_15" || self.vat_type ==  "standard_rate_sales_15" || self.vat_type ==  "standard_rate_sales_capital_goods_15"
-         self.vat_amount = ( self.price.round(2) * 0.15) / (1 + 0.15)
-         self.net_price = self.price / (1.15)
-         else
-         self.vat_amount = 0.0
-        end
+      self.vat_amount = ( self.price * 0.15) / (1 + 0.15)
+      self.net_price = self.price / (1.15)
+      
+     else
+         self.vat_amount = 0
+         self.net_price = self.price
+     end
     end
   
     def format_rounding
