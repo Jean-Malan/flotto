@@ -1,5 +1,5 @@
 <% if notice %>
-    <p class= 'alert alert-success'><%= notice %></p>
+    <p class= 'alert alert-success'><%= notice %> <a href="#" data-dismiss="alert" class="close">×</a></p>
 <% end %>
 </br>
 <%= link_to 'New Invoice', new_sale_path,  class: "btn btn-primary col-md-4" %> <%= link_to 'Drafts', sales_draft_index_path,  class: "btn btn-default pull-right" %><%= link_to 'Outstanding', sales_unpaid_path,  class: "btn btn-danger pull-right" %><%= link_to 'Partially Paid', sales_partially_paid_path,  class: "btn btn-warning pull-right" %><%= link_to 'Paid', sales_paid_path,  class: "btn btn-success pull-right" %><%= link_to 'All', sales_path,  class: "btn btn-info pull-right" %>  
@@ -28,7 +28,7 @@
         <td><%= link_to sale.date, sale_path(sale) %></td>
         <td><%= sale.contact_id ? sale.contact.name : 'No customer'  %></td>
         <td><%= "Inv #{sale.invoice_number}" %></td>
-      <td><%= sale.amount ? sale.amount.to_f.round(2) : "0"%></td>
+      <td><%= number_to_currency(sale.amount, :unit => "R ")%></td>
       
       
              <td>    <% if sale.sales_type == 'estimate' %>

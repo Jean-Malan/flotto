@@ -17,7 +17,7 @@
                             <% @bank_total += transaction.total_amount.to_f.round(2) %>
                              <% end %> 
                               <% end %> 
-                              <%= @bank_total.round(3) %></h3>
+                              <%= number_to_currency(@bank_total, :unit => "R ")  %></h3>
                               
                             
                          

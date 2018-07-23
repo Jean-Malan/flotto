@@ -1,5 +1,5 @@
 <% if notice %>
-    <p class= 'alert alert-success'><%= notice %></p>
+    <p class= 'alert alert-success'><%= notice %> <a href="#" data-dismiss="alert" class="close">×</a></p>
 <% end %>
 </br>
 <%= link_to 'New Invoice', purchases_invoice_path,  class: "btn btn-primary col-md-4" %> <%= link_to 'Drafts', purchases_draft_index_path,  class: "btn btn-default pull-right" %><%= link_to 'Outstanding', purchases_paid_path,  class: "btn btn-danger pull-right" %><%= link_to 'Partially Paid', purchases_partially_paid_path,  class: "btn btn-warning pull-right" %><%= link_to 'Paid', purchases_paid_path,  class: "btn btn-success pull-right" %><%= link_to 'All', purchases_path,  class: "btn btn-info pull-right" %>  
@@ -24,16 +24,8 @@
       <tr>
         <td><%= link_to purchase.date, purchase_path(purchase) %></td>
         <td><%= purchase.contact_id ? purchase.contact.name : 'No customer'  %></td>
-        <td><%= "Inv #{purchase.id}" %></td>
-        
-        
-             <% purchase.amount  = 0 %>
-        <% @purchase_entry.each do |entry| %>
-        <% if purchase.id == entry.purchase_id %>
-         <% purchase.amount += entry.total_price.to_f %>
-          <% end %>
-           <% end %>
-           <td><%= purchase.amount %></td>
+        <td><%= purchase.invoice_number ? purchase.invoice_number : 'Inv: ' %></td>
+           <td><%= number_to_currency(purchase.amount, :unit => 'R') %></td>
       
       
              <td>    <% if purchase.purchases_type == 'invoice' %>

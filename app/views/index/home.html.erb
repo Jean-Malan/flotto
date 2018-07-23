@@ -14,7 +14,7 @@
                                                             <% @totals += sales.amount.to_f.round(2) %>
                                                             <% end %>
                                                             <% end %>
-                                                            R<%= @totals %></strong></h3>
+                                                            <%= number_to_currency(@totals, :unit => "R ")  %></strong></h3>
                                                             
                                                          
                                         <small></small>
@@ -39,7 +39,7 @@
                                                             <% @total += transactions.total_amount %>
                                                             <% end %>
                                                             <% end %>
-                                                            R<%= @total.round(2) %></strong></h3>
+                                                            <%= number_to_currency(@total, :unit => "R ") %></strong></h3>
                                                            
                                 </div>
                                 <div class="card-footer">
@@ -55,8 +55,8 @@
                                     <div class="card-icon-white">
                                         <h1> <i class="material-icons text-danger pull-left" >trending_up</i></h1>
                                     </div>
-                                  <strong>  <h4 class="card-category text-danger"><strong>Grosss Profit</strong></h4></strong>
-                                    <h3 class="card-title text-danger"><strong>R3320</strong></h3>
+                                  <strong>  <h4 class="card-category text-danger"><strong>Grosss Profit - Past 30 days</strong></h4></strong>
+                                    <h3 class="card-title text-danger"><strong><%= number_to_currency(@gross_profit, :unit => "R ") %></strong></h3>
                                                          
                                 </div>
                                 <div class="card-footer">
@@ -72,9 +72,15 @@
                                     <div class="card-icon-white">
                                        <h1> <i class="material-icons text-white pull-left" >shopping_cart</i></h1>
                                     </div>
-                                   <strong> <h4 class="card-category text-white "><strong> Expenses - Past 30 days</strong></h4></strong>
-                                    <h3 class="card-title text-white "><strong>R125000</strong></h3>
-                                </div>
+                                   <strong> <h4 class="card-category text-white "><strong> Purchases - Past 30 days</strong></h4></strong>
+                                   <h3 class="card-title text-white"> <strong><% @expenses = 0 %>
+                                                            <% @purchases.each do |purchase| %>
+                                                            <% if purchase.purchases_type = "invoice"%>
+                                                            <% @expenses += purchase.amount.to_f.round(2) %>
+                                                            <% end %>
+                                                            <% end %>
+                                                            <%= number_to_currency(@expenses, :unit => "R ") %></strong></h3>
+                                                            </div>
                                 <div class="card-footer">
                                     <div class="stats">
                                         <i class="material-icons"></i> 
