@@ -6,10 +6,10 @@ gem 'rails', '4.2.8'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'jquery-rails'
-gem 'turbolinks'
+gem 'jquery-turbolinks'
+gem 'turbolinks', '~> 5.1.0'
 gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', '~> 1.0', group: :doc
 
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'will_paginate', '~> 3.1.0'
@@ -21,6 +21,12 @@ gem 'vuejs-rails'
 gem 'roo'
 gem 'by_star'
 gem 'devise'
+gem 'paperclip', :git=> 'https://github.com/thoughtbot/paperclip', :ref => '523bd46c768226893f23889079a7aa9c73b57d68'
+gem 'aws-sdk', '~> 2.3'
+gem 'json', '~> 1.8.6'
+
+
+
 
 group :development do
   gem 'spring'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180720140934) do
+ActiveRecord::Schema.define(version: 20180724053154) do
 
   create_table "bank_accounts", force: :cascade do |t|
     t.integer  "code"
@@ -120,6 +120,23 @@ ActiveRecord::Schema.define(version: 20180720140934) do
     t.integer  "code"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string   "company"
+    t.string   "username"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "country"
+    t.string   "post_code"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "purchase_entries", force: :cascade do |t|

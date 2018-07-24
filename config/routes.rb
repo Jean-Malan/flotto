@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :profiles
   devise_for :users
   get 'bank_accounts/unallocated'
   get 'purchases/paid'
