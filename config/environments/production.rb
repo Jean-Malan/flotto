@@ -81,8 +81,8 @@ Rails.application.configure do
   storage: :s3,
   s3_credentials: {
     bucket: ENV.fetch('ottolab'),
-    access_key_id: ENV.fetch('AKIAJF6H2JO4P6MEPLRA'),
-    secret_access_key: ENV.fetch('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'),
+    access_key_id: ENV.fetch('AKIAI3LIVKHVTFVK4APA'),
+    secret_access_key: ENV.fetch('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'),
     s3_region: ENV.fetch('eu-west-2'),
   }
 }
