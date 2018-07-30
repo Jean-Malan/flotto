@@ -18,12 +18,32 @@ class ReportsController < ApplicationController
    @gl_accounts = GlAccount.all.where("user_id =?", current_user.id)
    @journal_entries = JournalEntry.all.where("user_id =?", current_user.id)
    @purchases = Purchase.all.where("user_id =?", current_user.id)
-   @sale = Sale.all.where("user_id =?", current_user.id).where("sales_type =?", 0)
-   @sale_entry = SalesEntry.all.where("user_id =?", current_user.id)
-
+   @sale = Sale.all.where("user_id =?", current_user.id)
    
    
   end 
+  
+   def customer_balance
+    @sales = Sale.where("user_id =?", current_user.id).where("sales_type =?", 'invoice')
+    @customer = Contact.where("user_id =?", current_user.id)
+    @transactions = FinancialTransaction.where("user_id =?", current_user.id)
+    @sales30 = Sale.all.where("user_id =?", current_user.id).where("sales_type =?", 0).where("balance <= ?", 0).where(:due_date => 30.days.ago..Time.now)
+    @sales60 = Sale.where("user_id =?", current_user.id).where("sales_type =?", 0).where("balance <= ?", 0).where(:due_date => 60.days.ago..3.months.ago)
+    @sales90 = Sale.where("user_id =?", current_user.id).where("sales_type =?", 0).where("balance <= ?", 0).where(:due_date => 90.days.ago..6.months.ago)
+    @sales120 = Sale.where("user_id =?", current_user.id).where("sales_type =?", 0).where("balance <= ?", 0).where(:due_date => 120.days.ago..90.months.ago)
+  end 
+  
+   def supplier_balance
+    @purchases = Purchase.where("user_id =?", current_user.id).where("sales_type =?", 'invoice')
+    @customer = Contact.where("user_id =?", current_user.id)
+    @transactions = FinancialTransaction.where("user_id =?", current_user.id)
+    @purchases30 = Purchase.all.where("user_id =?", current_user.id).where("purchases_type =?", 0).where(:date => 3.months.ago..Time.now)
+    @purchases60 = Purchase.all.where("user_id =?", current_user.id).where("purchases_type =?", 0).where(:date => 6.months.ago..3.months.ago)
+    @purchases90 = Purchase.all.where("user_id =?", current_user.id).where("purchases_type =?", 0).where(:date => 9.months.ago..6.months.ago)
+    @purchases120 = Purchase.all.where("user_id =?", current_user.id).where("purchases_type =?", 0).where(:date => 12.months.ago..9.months.ago)
+
+  end 
+  
   
     def balance_sheet
    @reports = Report.all.where("user_id =?", current_user.id)

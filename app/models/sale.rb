@@ -27,6 +27,13 @@ class Sale < ActiveRecord::Base
   update(balance: financial_transactions.sum(:total_amount))
 end
   
+  def update_customer_sale_balance
+  if contact.present?
+     contact.update_sale_balance
+  end
+end
+
+
  def update_amount
   # Use find_all instead of where since you might be dealing with unpersisted records
   self.amount  = sales_entries

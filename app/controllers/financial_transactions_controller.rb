@@ -24,6 +24,10 @@ class FinancialTransactionsController < ApplicationController
     @financial_transaction.user_id = current_user.id
     end
 
+def invoice_entry
+    @financial_transaction = FinancialTransaction.new
+    @financial_transaction.user_id = current_user.id
+    end
 
 
   # GET /transactions/1/edit
@@ -80,6 +84,6 @@ class FinancialTransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def financial_transaction_params
-      params.require(:financial_transaction).permit(:user_id, :id, :payment,  :date, :description, :amount, :reference, :bank_account_id, :purchase_id, :sale_id, :total_amount, :bank_id, :account_id, :payment_entry_id, :purchase_invoice_id, :sales_invoice_id, :contact_id, :vat_amount, :vat, :gl_account_id, :vat_type)
+      params.require(:financial_transaction).permit(:user_id, :id, :payment, :payment_entry, :date, :description, :amount, :reference, :bank_account_id, :purchase_id, :sale_id, :total_amount, :bank_id, :account_id, :payment_entry_id, :purchase_invoice_id, :sales_invoice_id, :contact_id, :vat_amount, :vat, :gl_account_id, :vat_type)
     end
 end

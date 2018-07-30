@@ -1,6 +1,6 @@
 class FinancialTransaction < ActiveRecord::Base
-before_save :format_values, :format_vat, :format_rounding
-    after_save :update_sales, :update_purchases
+    before_save :format_values, :format_vat, :format_rounding, :set_contact
+    after_save :update_sales, :update_purchases, :set_contact_purchase_balance, :set_contact_sale_balance
     
     belongs_to :user 
     belongs_to :gl_account
@@ -29,11 +29,40 @@ before_save :format_values, :format_vat, :format_rounding
 
   private
   
+    #Setting the contact id to update the payment balance for invoice balance comparison
+  def set_contact
+    if purchase.present? 
+        self.contact_id = self.purchase.contact_id
+    else if sale.present? 
+        self.contact_id = self.sale.contact_id
+    end
+    end
+  end
   
+  def set_contact_purchase_balance
+   if purchase.present?
+     contact.update_transaction_sale_balance
+   end
+  end
+  
+  
+  def set_contact_sale_balance
+   if sale.present?
+     contact.update_transaction_sale_balance
+   end
+  end
+ 
+
 def update_sales
   if sale.present?
   sale.update_balance
  end
+end
+
+def contact_balance
+  if purchase.present?
+   
+  end
 end
 
 
@@ -42,7 +71,6 @@ def update_purchases
   purchase.update_balance
   end
 end
-   
 
   def format_values
      if self.payment_entry_id != nil
@@ -72,12 +100,15 @@ end
      end
   end
 
+  
    def self.import(file)
     bank_id = @bank_account_id 
    CSV.foreach(file.path, headers: true) do |row|
     FinancialTransaction.create! row.to_hash
   end
   end
+  
+
     
     def self.search(search)
   if search

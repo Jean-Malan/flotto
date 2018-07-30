@@ -15,8 +15,8 @@
      <td><%= f.text_field :description, label: false, class: 'form-control input'  %></td>
      <td><%= f.text_field :reference, label: false, class: 'form-control input'  %></td>
      <td>  <%= f.collection_select :bank_account_id, BankAccount.where(:user_id => current_user.id), :id, :name, {:prompt => false},class:"form-control" %></td>
-    <div> <td class =><%= f.collection_select :gl_account_id, GlAccount.where(:user_id => current_user.id), :id, :name, {:prompt => false}, class: "form-control standarddrop", type:"button", id:"dropdownMenuButton" %></div>
-    <%= f.collection_select :purchase_id, Purchase.where(:user_id => current_user.id), :id, :invoice_number, {:prompt => false},class:"form-control invoicedrop" %></td>
+    <div> <td class =><%= f.collection_select :gl_account_id, GlAccount.where(:user_id => current_user.id), :id, :name, {:prompt => true}, class: "form-control standarddrop", type:"button", id:"dropdownMenuButton" %></div>
+     <td><%= f.grouped_collection_select :purchase_id, Contact.where(:user_id => current_user.id).order(:name), :purchases, :name, :id, :invoice_number, {:prompt => false},class:"form-control invoicedrop" %></td>
      <td><%= f.collection_select :vat_type, FinancialTransaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => false},class:"form-control standarddrop"  %></td>
      <td> <%= f.text_field :total_amount, class: 'form-control input'  %></td>
         <%  f.check_box :payment, :value => true %>

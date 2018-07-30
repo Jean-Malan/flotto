@@ -101,10 +101,18 @@
                                         <div class="col-5">
                                             <div class="pull-right">
                                                 <br /> <br /> <br />
-                                                <p><b>Inv total: </b> <span><%= number_to_currency(@purchase.amount.to_f, :unit => 'R')%></span></p>
-                                                <p><b>Payed: </b> <span><%= number_to_currency(@purchase.balance.to_f, :unit => 'R')%> </span></p>
-                                                <p><b>Outstanding:</b>  <span><%= number_to_currency(@purchase.amount.to_f - @purchase.balance.to_f, :unit => 'R')%></span></p>
+                                                <p><b>Net Amount: </b> <span><%= number_to_currency(@purchase.amount.to_f.abs + @purchase.vat_amount.to_f, :unit => 'R') %></span></p>
+                                                <p><b>Vat Amount: </b> <span><%= number_to_currency(@purchase.vat_amount.to_f.abs, :unit => 'R')%></span></p>
+                                                <p><b>Inv total: </b> <span><%= number_to_currency(@purchase.amount.to_f.abs, :unit => 'R')%></span></p>
+    
+                                               <div>
                                             </div>
+                                            
+                                  
+                                           
+                                                              
+                                                              
+                                                       
                                             <div class="clearfix"></div>
                                         </div> <!-- end col -->
                                     </div>
@@ -129,13 +137,13 @@
                                    <i class="material-icons">filter_list</i>
                                     <div class="ripple-container"></div>
                                         </div>
-
-                                 
+                                        
+                                        
                                  <div id='some_other_div'  style="background-color:#fff">
                                     <div class="row">
                                         <div class="col-md-10 card-header">
                                             <div class="table-responsive table-light fold-table">
-                                                <table class="table mt-4 table-centered table-light fold-table">
+                                                <table class="table mt-8 table-centered table-light fold-table">
                                                     <thead>
                                                     <tr class ='view'>
                                                       <h3 class='center'><strong>Transactions</strong></h3>  

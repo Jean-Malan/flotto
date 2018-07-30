@@ -37,6 +37,9 @@ Rails.application.routes.draw do
   resources :financial_transactions
   get 'index/home'
   get 'reports/income_statement'
+  get 'payment_entries/invoice_entry'
+  get 'reports/customer_balance'
+  get 'reports/supplier_balance'
   root 'index#home'
   
     resources :financial_transactions do 

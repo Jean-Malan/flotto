@@ -17,7 +17,7 @@
      <td><%= f.text_field :reference, label: false, class: 'form-control input'  %></td>
      <td>  <%= f.collection_select :bank_account_id, BankAccount.where(:user_id => current_user.id), :id, :name, {:prompt => false},class:"form-control" %></td>
      <td class = 'standarddrop'><%= f.collection_select :gl_account_id, GlAccount.where(:user_id => current_user.id), :id, :name, {:include_blank => true}, class:"form-control standarddrop" %></td>
-     <td class = 'invoicedrop'><%= f.collection_select :sale_id, Sale.where(:user_id => current_user.id), :id, :date, {:include_blank => true}, class:"form-control invoicedrop" %></td>
+     <td class = 'invoicedrop'><%= f.collection_select :sale_id, Sale.where(:user_id => current_user.id), :id, :invoice_number, {:include_blank => true}, class:"form-control invoicedrop" %></td>
      <td class = 'standarddrop'><%= f.collection_select :vat_type, FinancialTransaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:include_blank => true},class:"form-control standarddrop"  %></td>
      <td> <%= f.text_field :total_amount, class: 'form-control input'  %></td>
          <%= f.hidden_field :user_id, :value => current_user.id %>

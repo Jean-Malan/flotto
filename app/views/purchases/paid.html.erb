@@ -28,8 +28,8 @@
         <td><%= purchase.contact_id ? purchase.contact.name : 'No customer'  %></td>
         <td><%= "Inv #{purchase.id}" %></td>
              <td><%= purchase.amount %></td>
-              <td> <%= purchase.balance %> </td>
-              <td> <%= purchase.amount + purchase.balance %> </td>
+              <td> <%= purchase.balance.to_f.abs %> </td>
+              <td> <%= purchase.amount.to_f - purchase.balance.to_f %> </td>
              <% end %>
               <% end %>
       </td>   

@@ -1,4 +1,6 @@
 class Purchase < ActiveRecord::Base
+  after_create :set_balance, :update_customer_purchase_balance
+  
   before_save :update_amount
     belongs_to :user 
     belongs_to :contact
@@ -17,8 +19,14 @@ class Purchase < ActiveRecord::Base
   
   
    def set_balance
-   self.balance = 0.00
+   self.balance = 0.0
  end
+ 
+def update_customer_purchase_balance
+  if contact.present?
+     contact.update_purchase_balance
+  end
+end
  
   def update_balance
     update(balance: financial_transactions.sum(:total_amount))

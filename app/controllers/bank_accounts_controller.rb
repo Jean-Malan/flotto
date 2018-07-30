@@ -16,7 +16,7 @@ class BankAccountsController < ApplicationController
   # GET /bank_accounts/1.json
   def show
     @total = FinancialTransaction.all.where("user_id =?", current_user.id)
-       @search = FinancialTransactionSearch.new(params[:search])
+    @search = FinancialTransactionSearch.new(params[:search])
     @financial_transactions = @search.scope.where("user_id =?", current_user.id).searchref(params[:searchref]).order('date DESC').paginate(:per_page => 35, :page => params[:page])
   end
   

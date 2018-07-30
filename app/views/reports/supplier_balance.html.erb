@@ -1,0 +1,70 @@
+
+
+  
+  <div class= "card col-md-12">
+      <h3 class="header-title"><strong>Supplier Statement</strong></h3>
+                                
+<table class="table table-hover">
+  <thead>
+    <tr>
+     <th><strong>Customer</strong></th>
+      <th><strong>30 days</strong></th>
+      <th><strong>60 days </strong></th>
+      <th><strong>90 days</strong></th>
+      <th><strong>120 days </strong></th>
+    </tr>
+  </thead>
+  
+  <tbody>
+  <% @purchases30.each do | purchase30 | %>
+  <% if purchase30.balance.to_f != purchase30.amount %>
+      <tr>
+  <td><%= purchase30.contact ? purchase30.contact.name : " " %></td>
+  <td><%=link_to number_to_currency((purchase30.amount - purchase30.balance.to_f),:unit  =>  'R'), purchase_path(purchase30) %></td>
+   <td></td>
+    <td></td>
+     <td></td>
+      </tr>
+  <% end %>
+  <% end %>
+  
+   <% @purchases60.each do | purchase60 | %>
+    <% if purchase60.balance.to_f != purchase60.amount %>
+      <tr>
+  <td><%= purchase60.contact ? purchase60.contact.name : " " %></td>
+  <td></td>
+  <td><%=link_to number_to_currency((purchase60.amount - purchase60.balance.to_f),:unit  =>  'R'), purchase_path(purchase60) %></td>
+   <td></td>
+    <td></td>
+      </tr>
+  <% end %>
+   <% end %>
+  
+   <% @purchases90.each do | purchase90 | %>
+    <% if purchase90.balance.to_f != purchase90.amount %>
+      <tr>
+  <td><%= purchase90.contact ? purchase90.contact.name : " " %></td>
+  <td></td>
+   <td></td>
+  <td><%=link_to number_to_currency((purchase90.amount - purchase90.balance.to_f),:unit  =>  'R'), purchase_path(purchase90) %></td>
+   <td></td>
+      </tr>
+  <% end %>
+   <% end %>
+  
+   <% @purchases120.each do | purchase120 | %>
+    <% if purchase120.balance.to_f != purchase120.amount %>
+      <tr>
+  <td><%= purchase120.contact ? purchase120.contact.name : " " %></td>
+  <td></td>
+   <td></td>
+    <td></td>
+  <td><%=link_to number_to_currency((purchase120.amount - purchase120.balance.to_f),:unit  =>  'R'), purchase_path(purchase120) %></td>
+      </tr>
+  <% end %>
+   <% end %>
+  
+  
+  
+  </tbody>
+

@@ -4,5 +4,6 @@ class PaymentEntry < ActiveRecord::Base
 
     accepts_nested_attributes_for :financial_transactions,
                                   allow_destroy: true
+                                  
   
 end
