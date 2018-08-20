@@ -26,5 +26,9 @@ class GlAccount < ActiveRecord::Base
   }
 
 
+def update_balance
+  update(account_balance: financial_transactions.sum(:total_amount))
+end
+
     
 end

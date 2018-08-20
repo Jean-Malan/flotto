@@ -48,27 +48,6 @@ $('#test_btn').on("click", function(){
 });
 
       
-$(document).on('click', '#minimizeSidebar',function (){
-            var $btn = $(this);
-
-            if (md.misc.sidebar_mini_active == true) {
-                $('body').removeClass('sidebar-mini');
-                md.misc.sidebar_mini_active = false;
-            } else {
-                $('body').addClass('sidebar-mini');
-                md.misc.sidebar_mini_active = true;
-            }
-
-            // we simulate the window Resize so the charts will get updated in realtime.
-            var simulateWindowResize = setInterval(function() {
-                window.dispatchEvent(new Event('resize'));
-            }, 180);
-
-            // we stop the simulation of Window Resize after the animations are completed
-            setTimeout(function() {
-                clearInterval(simulateWindowResize);
-            }, 1000);
-        });
 
 
 $(function() {
@@ -112,71 +91,8 @@ profile
 // Invoice Application 
 
 
-// Invoice Fields // 
-
-$(document).on('click', '#transactionType',function (){
-    
-    $('td').change(function() {
-        update_fields();
-    });
-    
-});
 
 
- function update_fields(){
-$('tr').each(function(){
-    if( $('#select').val() == 'Select'  ){
-        $('.invoicedrop').hide();
-        $('.standarddrop').hide();
-    }
-    else if( $('#select').val() == 'Regular'  ){
-        $('.invoicedrop').hide();
-        $('.standarddrop').show();
-    } else if( $('#select').val() == 'Invoice'){
-        $('.standarddrop').hide();
-        $('.invoicedrop').show();
-    }
-
-   
-});
-};
-
-// Total amount invoices /
-
-$(document).on('click', '#myTable',function (){
-    
-      update_amounts();
-    $('#amount').change(function() {
-        update_amounts();
-    });
-    
-});
-
-$(document).on('click', '#myTable',function (){
-    
-      update_amounts();
-    $('#amount').change(function() {
-        update_amounts();
-    });
-    
-});
-
-
-
- function update_amounts()
-{
-    var sum = 0.0;
-    var vatDue = 0.0
-    $('#myTable > tr').each(function() {
-        var vat = $(this).find('.vat').val();
-        var qty = $(this).find('.qty').val();
-        var price = $(this).find('.price').val();
-        var amount = (qty * price);
-        sum += amount;
-        $(this).find('#amount').text('R'+ amount.toFixed(2));
-    });
-     $('.total').text(sum.toFixed(2));
-};
 
 
 

@@ -21,15 +21,15 @@
                                         <div class="col-md-3">
                                             <h6>Invoice Details</h6>
                                             <address>
-                                                   <h6>Date:  <%= @purchase.date %></h6>
-                                               <h6>Inv Number: <%= @purchase.invoice_number %></h6>
-                                               <h6>Inv Amount: <%= @purchase.amount %></h6>
+                                                 Date:  <%= @purchase.date %><br />
+                                                Inv Number: <%= @purchase.invoice_number %><br />
+                                                Inv Amount: <%= @purchase.amount %><br />
                                                 <abbr title="Phone">P:</abbr> 
                                             </address>
                                         </div> <!-- end col -->
         
                                         <div class="col-md-6">
-                                            <address class="line-h-24 shift-right">
+                                            <address class="line-h-24 pull-right">
                                                  <h6>Billing Address</h6>
                                                 <%= @purchase.contact_id ? @purchase.contact.name : '' %> </br>
                                                <%= @purchase.contact_id ? @purchase.contact.address_one : '' %> </br>
@@ -122,7 +122,7 @@
                                         <div class="text-right d-print-none">
                                             <a href="javascript:window.print()" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-printer mr-1"></i> Print</a>
                                             <a>  <%= link_to 'Edit', edit_purchase_path(@purchase), class: "btn btn-default" %></a> 
-                                             <a> <%= link_to 'Back', purchase_path ,class:"btn btn-default"%></a>
+                                             <a> <%= link_to 'Back', purchases_path ,class:"btn btn-default"%></a>
                                         </div>
                                     </div>
                                 </div>
@@ -137,28 +137,27 @@
                                    <i class="material-icons">filter_list</i>
                                     <div class="ripple-container"></div>
                                         </div>
+                                        </div>
                                         
                                         
                                  <div id='some_other_div'  style="background-color:#fff">
-                                    <div class="row">
-                                        <div class="col-md-10 card-header">
-                                            <div class="table-responsive table-light fold-table">
-                                                <table class="table mt-8 table-centered table-light fold-table">
-                                                    <thead>
+                                        <div class="card-header">
+                                                <table class="table table-centered table-light fold-table">
+                                                    <thead class="col-md-12">
                                                     <tr class ='view'>
                                                       <h3 class='center'><strong>Transactions</strong></h3>  
-                                                      </tr>
                                                           <tr class="fold"> 
                                                           <div class="fold-content">
                                                             <th class ='col-md-4'><strong>Date</strong></th>
                                                               <th class ='col-md-4'><strong>Description</strong></th>
                                                               <th class ='col-md-4'><strong>Reference</strong></th>
                                                               <th class ='col-md-4'><strong>Amount</strong></th>
-                                                    </tr></thead>
+                                                    </tr>
+                                                    </thead>
                                                     <tbody>
                                                    <tr>
                                                             <% @transactions.each do |transaction| %>
-                                                             <% if transaction.purchase_id == @purchase.id %>
+                                                             <% if transaction.purchase_id == @purchase.id && transaction.user_id == current_user.id %>
                                                           <td class ='col-md-4'><%= link_to transaction.date, edit_financial_transaction_path(transaction) %></td>
                                                            <td class ='col-md-4'><%= transaction.description %></td>
                                                           <td class ='col-md-4'><%=transaction.reference %></td>
@@ -169,27 +168,8 @@
                                                      <% end %>
                                                      </div>
                                                      </div>
-                                                    </tr>
         
                                                     </tbody>
                                                 </table>
-                                            </div> <!-- end table-responsive -->
                                         </div> <!-- end col -->
                                     </div>
-                                    
-                                    
-                                    
-                                    <!-- end row -->
-        
-
-                        <!-- end row -->        
-
-                    </div> <!-- end container-fluid-->
-                </div> <!-- end contant-->
-            </div>
-            <!-- End Page Content-->
-            
-              </div>
-  <%= link_to 'Edit', edit_purchase_path(@purchase), class: "btn btn-default" %> |
-<%= link_to 'Back', purchase_path ,class:"btn btn-default"%>
- </center>

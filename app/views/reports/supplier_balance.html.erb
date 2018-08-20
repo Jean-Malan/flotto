@@ -2,7 +2,7 @@
 
   
   <div class= "card col-md-12">
-      <h3 class="header-title"><strong>Supplier Statement</strong></h3>
+      <h3 class="header-title"><strong>Customer Statement</strong></h3>
                                 
 <table class="table table-hover">
   <thead>
@@ -16,50 +16,21 @@
   </thead>
   
   <tbody>
-  <% @purchases30.each do | purchase30 | %>
-  <% if purchase30.balance.to_f != purchase30.amount %>
+  <% @customer.each do | customer | %>
+  <% if customer.purchase_balance != nil %>
       <tr>
-  <td><%= purchase30.contact ? purchase30.contact.name : " " %></td>
-  <td><%=link_to number_to_currency((purchase30.amount - purchase30.balance.to_f),:unit  =>  'R'), purchase_path(purchase30) %></td>
+  <td><%= customer.name  %></td>
+  
+  <% @purchases30.each do |purchase| %>
+  <% if purchase.contact_id = customer.id %>
+  <td>  
+        <%= purchase.amount %> 
+ </td>
+  <% end %>
+  <% end %>
    <td></td>
     <td></td>
      <td></td>
-      </tr>
-  <% end %>
-  <% end %>
-  
-   <% @purchases60.each do | purchase60 | %>
-    <% if purchase60.balance.to_f != purchase60.amount %>
-      <tr>
-  <td><%= purchase60.contact ? purchase60.contact.name : " " %></td>
-  <td></td>
-  <td><%=link_to number_to_currency((purchase60.amount - purchase60.balance.to_f),:unit  =>  'R'), purchase_path(purchase60) %></td>
-   <td></td>
-    <td></td>
-      </tr>
-  <% end %>
-   <% end %>
-  
-   <% @purchases90.each do | purchase90 | %>
-    <% if purchase90.balance.to_f != purchase90.amount %>
-      <tr>
-  <td><%= purchase90.contact ? purchase90.contact.name : " " %></td>
-  <td></td>
-   <td></td>
-  <td><%=link_to number_to_currency((purchase90.amount - purchase90.balance.to_f),:unit  =>  'R'), purchase_path(purchase90) %></td>
-   <td></td>
-      </tr>
-  <% end %>
-   <% end %>
-  
-   <% @purchases120.each do | purchase120 | %>
-    <% if purchase120.balance.to_f != purchase120.amount %>
-      <tr>
-  <td><%= purchase120.contact ? purchase120.contact.name : " " %></td>
-  <td></td>
-   <td></td>
-    <td></td>
-  <td><%=link_to number_to_currency((purchase120.amount - purchase120.balance.to_f),:unit  =>  'R'), purchase_path(purchase120) %></td>
       </tr>
   <% end %>
    <% end %>
@@ -67,4 +38,3 @@
   
   
   </tbody>
-

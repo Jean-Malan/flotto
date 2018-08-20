@@ -32,7 +32,12 @@ def invoice_entry
 
   # GET /transactions/1/edit
   def edit
+    
   end
+  # GET /transactions/1/edit
+  def editrec
+ 
+   end
 
 
 

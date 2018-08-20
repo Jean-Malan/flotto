@@ -1,6 +1,7 @@
 class FinancialTransaction < ActiveRecord::Base
     before_save :format_values, :format_vat, :format_rounding, :set_contact
-    after_save :update_sales, :update_purchases, :set_contact_purchase_balance, :set_contact_sale_balance
+    after_save :update_sales, :update_purchases, :set_contact_purchase_balance, :set_contact_sale_balance, :update_gl_balance
+    
     
     belongs_to :user 
     belongs_to :gl_account
@@ -59,10 +60,10 @@ def update_sales
  end
 end
 
-def contact_balance
-  if purchase.present?
-   
-  end
+def update_gl_balance
+  if gl_account.present?
+  gl_account.update_balance
+ end
 end
 
 
@@ -84,11 +85,12 @@ end
       self.net_amount = self.total_amount / (1.15)
      else if self.vat_type == "zero_rated_sales_excluding_goods_exported" || self.vat_type == "zero_rated_only_exported_goods"
       self.total_amount = self.total_amount
-     else
       self.vat_amount = 0
+      self.net_amount = self.total_amount
      end
      end
   end
+  
   
   def format_rounding
    if self.vat_amount != nil

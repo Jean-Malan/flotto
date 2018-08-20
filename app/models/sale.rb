@@ -1,4 +1,5 @@
 class Sale < ActiveRecord::Base
+ 
       before_save :update_amount
       
       belongs_to :user 
@@ -42,5 +43,29 @@ end
  
   
   end
+  
+   def update_vat_amount
+  # Use find_all instead of where since you might be dealing with unpersisted records
+  self.vat_total  = sales_entries
+                  .find_all(&:vat_amount?)
+                  .sum { |sales_entry| sales_entry.vat_amount * sales_entry.quantity }
+ 
+  
+  end
+  
+  
+  
+  def credit_note
+   if self.sales_type == credit_note
+   
+    self.amount  = sales_entries
+                   .find_all(&:price?)
+                   .sales_entry.credit_note
+  
+    self.amount = self.amount * -1
+  
+  end
+ end
+  
  
 end

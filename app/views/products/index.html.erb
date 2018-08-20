@@ -24,7 +24,7 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
-        <td><%= link_to product.name, edit_product_path(product)%></td>
+        <td><%= link_to product.name, product_path(product)%></td>
         <td><%= product.brand ? product.brand : "No brand" %></td>
         <td><%= product.current_stock %></td>
         <td><%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -47,8 +47,6 @@
         </button>
       </div>
       <div class="modal-body">
-
-
 <%= render 'form' %>
       </div>
       <div class="modal-footer">

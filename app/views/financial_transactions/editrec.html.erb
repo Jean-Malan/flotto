@@ -1,0 +1,76 @@
+<%= simple_form_for(@financial_transaction) do |f| %>
+  <% if @financial_transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@financial_transaction.errors.count, "error") %> prohibited this payment_entry from being saved:</h2>
+<%end%>
+ <center><div class="justify-content-md-center">
+  <div class="col-lg-12 col-md-12">
+  <div class = "card">
+   <div class="card-header card-header-success">
+                                    <h4 class="card-title">New Transaction</h4>
+                                    <p class="card-category"></p>
+                                     </div> 
+    <div class="card-text">
+  <form class="needs-validation" novalidate>
+  <table class = "table" id="transactionType">
+    <thead>
+    <tr>
+      <th class ="colspan-1"></th>
+      <th class ="colspan-1">Transaction Type</th>
+      <th class ="colspan-1">Date</th>
+       <th class ="colspan-1">Description</th>
+      <th class ="colspan-1">Reference</th>
+       <th class ="colspan-1">Bank</th>
+      <th class ="colspan-1">Account</th>
+      <th class ="colspan-1">VAT</th>
+      <th class ="colspan-1">Amount</th>
+    </tr>
+  </thead>
+  
+
+ <tbody class ="fields" id="transacionType">
+    <%= f.fields_for :financial_transactions do |builder| %>
+
+
+
+<div class="actions">
+   <tr id ='row'>
+    <td>
+              <%= f.hidden_field :_destroy %>
+              <%= link_to "remove", '#', class: "remove_record" %>
+    </td>
+    <td>
+      <select id="select" class= 'form-control' name="Transaction type" >
+       <option class = 'standard'>Select</option>
+        <option class = 'standard'>Regular</option>
+        <option class = 'invoice'>Invoice</option>
+       </select>
+    </td>
+    
+     <td> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td>
+     <td><%= f.text_field :description, label: false, class: 'form-control input'  %></td>
+     <td><%= f.text_field :reference, label: false, class: 'form-control input'  %></td>
+     <td>  <%= f.collection_select :bank_account_id, BankAccount.where(:user_id => current_user.id), :id, :name, {:prompt => false},class:"form-control" %></td>
+      <div> <td class><%= f.collection_select :contact_id, Contact.where(:user_id => current_user.id), :id, :name, {:prompt => false}, class: "form-control standarddrop", type:"button", id:"dropdownMenuButton" %></div>
+       <%= f.grouped_collection_select :purchase_id, Contact.where(:user_id => current_user.id).order(:name), :purchases, :name, :id, :invoice_number, {:prompt => false},class:"form-control invoicedrop" %></td>
+     <td><%= f.collection_select :vat_type, FinancialTransaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => false},class:"form-control standarddrop"  %></td>
+     <td> <%= f.text_field :total_amount, class: 'form-control input'  %></td>
+        <%  f.check_box :payment, :value => true %>
+            <%= f.hidden_field :user_id, :value => current_user.id %>
+
+     
+
+</div>
+
+
+
+  </tbody>
+  </table>
+ 
+    <% end %>
+
+   <%= f.submit 'Add Transaction', class: 'btn btn-info'%>
+
+<%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
+  </div>
+<% end %>

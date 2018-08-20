@@ -7,7 +7,7 @@
 
 <br><br>
 <div class= "card">
-<table class="table">
+<table class="table table-responsive-lg">
   <thead>
     <tr>
       <th>Date</th>
@@ -25,7 +25,7 @@
         <td><%= link_to purchase.date, purchase_path(purchase) %></td>
         <td><%= purchase.contact_id ? purchase.contact.name : 'No customer'  %></td>
         <td><%= purchase.invoice_number ? purchase.invoice_number : 'Inv: ' %></td>
-           <td><%= number_to_currency(purchase.amount, :unit => 'R') %></td>
+           <td><%= number_to_currency(purchase.amount.abs, :unit => 'R') %></td>
       
       
              <td>    <% if purchase.purchases_type == 'invoice' %>

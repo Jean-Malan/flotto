@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   resources :profiles
   devise_for :users
+  
+ 
   get 'bank_accounts/unallocated'
   get 'purchases/paid'
   get 'purchases/draft_index'
@@ -35,6 +37,14 @@ Rails.application.routes.draw do
   resources :bank_accounts
   resources :gl_accounts
   resources :financial_transactions
+  resources :financial_transactions do
+  member do
+    patch :editrec
+    put :editrec
+  end
+end
+
+
   get 'index/home'
   get 'reports/income_statement'
   get 'payment_entries/invoice_entry'
@@ -56,4 +66,3 @@ Rails.application.routes.draw do
   end
  
 end
-

@@ -1,6 +1,7 @@
 class IndexController < ApplicationController
     before_action :authenticate_user!
   def home
+
       @sale = Sale.all.where("user_id =?", current_user.id)
       @purchases = Purchase.all.where("user_id =?", current_user.id)
       @transactions = FinancialTransaction.all.where("user_id =?", current_user.id)

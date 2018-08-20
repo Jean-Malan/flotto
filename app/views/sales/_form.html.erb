@@ -4,7 +4,6 @@
   <% if @sale.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this purchase from being saved:</h2>
-
       <ul>
       <% @sale.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -43,32 +42,40 @@
   <br />
 
  
-   <table class = "table" id="transactionType">
+<div class= "card">
+  <table class= "table">
     <thead>
     <tr>
-        <center>
-      <th class ="col col-lg-1"></th>
-      <th class ="colspan-1"><center>Product</center></th>
-      <th class ="colspan-1"><center>Description</center></th>
-      <th class ="colspan-1"><center>Account</center></th>
-      <th class ="colspan-1"><center>Vat</center></th>
-      <th class ="col col-lg-1"><center>Quantity</center></th>
-      <th class ="col col-lg-2"><center>Amount</center></th>
-      <th class ="col col-lg-2"><center>Total</center></th>
-      </center>
+      <th class ="colspan-1"></th>
+       <th class ="colspan-1">Product</th>
+      <th class ="colspan-1">Description</th>
+      <th class ="colspan-1">Account</th>
+       <th class="col-md-1">Vat</th>
+      <th class ="md-1">Quantity</th>
+      <th class ="md-1">Amount</th>
+      <th class ="colspan-1">Total</th>
     </tr>
   </thead>
     
 
-      <div class>
- <tbody class ="fields">
+      <div class = "card">
+ <tbody class ="fields" id="myTable">
     <%= f.fields_for :sales_entries do |builder| %>
     <%= render 'sales_entry', f: builder %>
     <% end %>
     </div>
   </div>
   </tbody>
-  
+   <tr>
+     <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td><h5>Total: </h5></td>
+ <td><strong><h5 class="total"></h5></strong></td>
+ </tr>
   </table>
   <%= link_to_add_row('Add line', f, :sales_entries, class: 'btn btn-warning') %>
   </br> </br>

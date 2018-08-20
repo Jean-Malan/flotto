@@ -1,59 +1,101 @@
 <p id="notice"><%= notice %></p>
+<div class="card">
+<div class="wrapper">
+    <div class="section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 pull-left">
+               <div class="tab-content pull-left">
+                            <div class="pull-left">
+                                 <img src=""/>
+                              </div>
+                              </div>
+                              </div>
+                <div class="clearout"></div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
+            <div class="col-md-6">
+                <div class="product-details">
+                  <a href="">
+                      <h3 class="title"><%= @product.name %></h3>
+                  </a>
+                  <p class="description">
+                    Product description? wat dat?
+                  </p>
 
-<p>
-  <strong>Brand:</strong>
-  <%= @product.brand %>
-</p>
+                  <span class="price">Price: <%= @product.price %></span>
+                </div>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                      <h4 class="panel-title">
+                        <a data-toggle="colapse" data-parent="#accordion" href="#colapseOne" aria-expanded="true" aria-controls="colapseOne">
+                          Product tags
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="colapseOne" class="panel-collapse colapse in" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body">
+                        Tag: <%= @product.tag %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                      <h4 class="panel-title">
+                        <a class="colapsed" data-toggle="colapse" data-parent="#accordion" href="#colapseTwo" aria-expanded="true" aria-controls="colapseTwo">
+                          Stock
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="colapseTwo" class="panel-collapse colapse" role="tabpanel" aria-labelledby="headingTwo">
+                      <div class="panel-body">
+                        <ul style="padding-left: 20px;">
+                            <li style="list-style-position: outside;"> Opening Stock: <%= @product.opening_stock %></li>
+                            <li style="list-style-position: outside;"> Total Purchases: <%= @product.purchase_balance %></li>
+                            <li style="list-style-position: outside;"> Total Sales: <%= @product.sale_balance %></li>
+                            <li style="list-style-position: outside;"> Current Stock:<%= @product.current_stock %> </li>
 
-<p>
-  <strong>Tag:</strong>
-  <%= @product.tag %>
-</p>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                      <h4 class="panel-title">
+                        <a class="colapsed" data-toggle="colapse" data-parent="#accordion" href="#colapseThree" aria-expanded="true" aria-controls="colapseThree">
+                          Code
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="colapseThree" class="panel-colapse colapse" role="tabpanel" aria-labelledby="headingThree">
+                      <div class="panel-body">
+                        Code: <%= @product.code %> 
+                      </div>
+                    </div>
+                  </div>
+                   <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingFour">
+                      <h4 class="panel-title">
+                        <a class="colapsed" data-toggle="colapse" data-parent="#accordion" href="#colapseFour" aria-expanded="true" aria-controls="colapseFour">
+                         Delivery & Return
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="colapseFour" class="panel-colapse colapse" role="tabpanel" aria-labelledby="headingFour">
+                      <div class="panel-body">
+                        Find out more about our delivery options
+                        Please try items in the comfort of your own home. If you don't like them, or they don't fit, we'll happily collect them from your home or office for free.
+                      </div>
+                    </div>
+                  </div>
+                </div> <!-- Acordeon  -->
+            </div>
+          </div>
+    </div>
+    </div>
+    </div>
+                </div>
 
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
-
-<p>
-  <strong>Quantity:</strong>
-  <%= @product.quantity %>
-</p>
-
-<p>
-  <strong>Purchase entry:</strong>
-  <%= @product.purchase_entry_id %>
-</p>
-
-<p>
-  <strong>Sale entry:</strong>
-  <%= @product.sale_entry_id %>
-</p>
-
-<p>
-  <strong>Opening stock:</strong>
-  <%= @product.opening_stock %>
-</p>
-
-<p>
-  <strong>Current stock:</strong>
-  <%= @product.current_stock %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @product.user_id %>
-</p>
-
-<p>
-  <strong>Code:</strong>
-  <%= @product.code %>
-</p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

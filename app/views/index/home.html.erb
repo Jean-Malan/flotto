@@ -1,3 +1,7 @@
+<% if notice %>
+    <p class= 'alert alert-success'><%= notice %> <a href="#" data-dismiss="alert" class="close">×</a></p>
+<% end %>
+
 <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -147,14 +151,12 @@
                                         <tbody>
                                             <tr>
                                                 <% @sale.each do |sale|%>
-                                                <% if sale.balance != nil %>
-                                                <% if sale.amount.to_f <= sale.balance.to_f %>
+                                                <% if (sale.amount.to_f - sale.balance.to_f) < 0 %>
                                                 <td> <%= link_to sale.id, sale_path(sale), class: 'text-dark' %></td>
                                                 <td> <%= link_to "Inv #{sale.id}", sale_path(sale), class: 'text-dark' %></td>
                                                 <td><%= link_to number_to_currency(sale.amount, :unit => 'R'), sale_path(sale),class: 'text-dark'  %></td>
                                                 <td><%= link_to number_to_currency(sale.balance, :unit => 'R'), sale_path(sale), class: 'text-dark'  %></td>
                                                 </tr>
-                                                <% end %>
                                                 <% end %>
                                                 <% end %>
                                             </tbody>
@@ -191,6 +193,7 @@
                                         </div>
                                         <div class="tab-pane" id="settings">
                                             <table class="table">
+                                                <div class ='table-responsive'>
                                                  <thead class="text-">
                                      <tr><th>Inv:</th>
                                             <th>Name</th>
@@ -209,7 +212,7 @@
                                                 </tr>
                                                 <% end %>
                                                 <% end %>
-                                             
+                                             </div>
                                             </tbody>
                                             </table>
                                         </div>

@@ -23,7 +23,7 @@
   <tbody>
    <tbody>
     <% @sales.each do |sale| %>
-    <% if sale.balance == nil %>
+    <% if sale.balance == 0 %>
       <tr>
         <td><%= link_to sale.date,  sale_path(sale)%></td>
         <td><%= sale.contact_id ? sale.contact.name : 'No customer'  %></td>

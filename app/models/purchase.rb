@@ -32,6 +32,7 @@ end
     update(balance: financial_transactions.sum(:total_amount))
   end
 
+
   def update_amount
       self.amount  = purchase_entries
                       .find_all(&:price?)

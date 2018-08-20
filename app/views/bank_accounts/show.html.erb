@@ -49,12 +49,12 @@
        <%end%> 
    </div>
    <div class='col-md-3'>
-      <%= form_tag bank_account_path, method: :get do %>
+    
       <th class='btn btn-white'></th>
-        <th> <center>Date From: </th><th><%= text_field_tag 'search[date_from]', @search.date_from, :class => 'form-control text-center' %></center></th>
-        <th><center>Date To:</th> <th><%= text_field_tag 'search[date_to]', @search.date_to, :class => 'form-control text-center' %></center></th>
-        <th><center> <%= submit_tag 'Search', :class => 'btn btn-sm btn-info' %></center></th>
-       <%end%>
+        <th> <center>Date From: </th><th></center></th>
+        <th><center>Date To:</th> <th></center></th>
+        <th><center> </center></th>
+       
      </div>
       <th class='btn btn-white'></th>
      <div class='col-md-3'>
@@ -71,7 +71,7 @@
 
  <div class="card">
  <div class="card-body table-responsive fold-table">
-   <table class="table table-hover fold-table">
+   <table class="table table-responsive-lg fold-table">
     <thead class="text-warning">
   
        <th scope="col">Date</th>
@@ -108,7 +108,9 @@
                  <%end%>
                <td class ="table-color"><%= link_to transaction.vat_amount ? number_to_currency(transaction.vat_amount, :unit => 'R') : ""  %></td>
               <td class ="table-color"><%= link_to transaction.total_amount ? number_to_currency(transaction.total_amount, :unit => 'R')  : ""  %>
-             <td><%= link_to 'More', edit_financial_transaction_path(transaction) %> | 
+             
+             <td>
+                  <%= link_to 'More', edit_financial_transaction_path(transaction) %> | 
                 <%= link_to 'Delete', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       

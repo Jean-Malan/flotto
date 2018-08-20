@@ -12,7 +12,7 @@
     <td><%= f.collection_select :vat_type, SalesEntry.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => false},class:"form-control"  %></td>
        <td><%= f.text_field :quantity, label: false, class:"form-control qty"%></td>
     <td><%= f.text_field :price, label: false, class:"form-control price"%></td>
-    <td id="amount"><p class='amount' id-"amount"><center>0.00</center></p></td>
+    <td id="amount"><p class='amount' id-"amount">0.00</p></td>
     <%= f.hidden_field :user_id, :value => current_user.id %>
      
 </tr>

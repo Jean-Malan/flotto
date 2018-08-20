@@ -1,5 +1,6 @@
 class PurchaseEntry < ActiveRecord::Base
     before_save :format_rounding,  :format_vat, :define_total_price
+    after_create_commit :update_purchase_quantity, :update_current_stock
     
        belongs_to :user 
        belongs_to :gl_account
@@ -23,7 +24,17 @@ class PurchaseEntry < ActiveRecord::Base
          self.total_price =  self.quantity.to_f * (self.price.to_f + self.vat_amount.to_f )
   end
   
- 
+   def update_purchase_quantity 
+    if product.present?
+        product.update_purchase_balance
+   end 
+  end
+  
+  def update_current_stock
+    if product.present?
+        product.update_current_stock  
+   end 
+  end
    
     def format_vat
         if self.vat_type ==  "standard_rate_purchases_15" || self.vat_type ==  "standard_rate_sales_15" || self.vat_type ==  "standard_rate_sales_capital_goods_15"
@@ -37,9 +48,9 @@ class PurchaseEntry < ActiveRecord::Base
     end
   
     def format_rounding
-         self.vat_amount = self.vat_amount.to_f.round(2) * -1
-         self.price = self.price.to_f.round(2) * -1
-          self.total_price = self.price.to_f.round(2) * -1
+         self.vat_amount = self.vat_amount.to_f.round(2) 
+         self.price = self.price.to_f.round(2) 
+          self.total_price = self.price.to_f.round(2) 
    end
 
 end
