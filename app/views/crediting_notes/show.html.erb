@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Credit amount:</strong>
+  <%= @crediting_note.credit_amount %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @crediting_note.contact_id %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @crediting_note.date %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @crediting_note.user_id %>
+</p>
+
+<p>
+  <strong>Sale:</strong>
+  <%= @crediting_note.sale_id %>
+</p>
+
+<p>
+  <strong>Purchase:</strong>
+  <%= @crediting_note.purchase_id %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @crediting_note.balance %>
+</p>
+
+<%= link_to 'Edit', edit_crediting_note_path(@crediting_note) %> |
+<%= link_to 'Back', crediting_notes_path %>

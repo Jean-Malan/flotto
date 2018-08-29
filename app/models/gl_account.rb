@@ -7,6 +7,7 @@ class GlAccount < ActiveRecord::Base
    has_many :purchase_entries
    has_many :journal_entries
    has_many :purchases
+   has_many :account_balances
    
   accepts_nested_attributes_for :journal_entries
    accepts_nested_attributes_for :financial_transactions
@@ -26,9 +27,7 @@ class GlAccount < ActiveRecord::Base
   }
 
 
-def update_balance
-  update(account_balance: financial_transactions.sum(:total_amount))
-end
+
 
     
 end

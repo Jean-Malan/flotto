@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :vat_account_balances
+  resources :account_balances
+  resources :crediting_notes
   resources :profiles
   devise_for :users
   
@@ -9,8 +12,7 @@ Rails.application.routes.draw do
   get 'purchases/draft_index'
   get 'purchases/unpaid'
   get 'purchases/partially_paid'
-  get 'report/income_statement'
-  get 'report/balance_sheet'
+  get 'reports/balance_sheet'
   get 'report/trial_balance'
   get 'report/general_ledger'
   get 'payment_entries/invoice_entry'
@@ -19,6 +21,7 @@ Rails.application.routes.draw do
   get 'sales/draft_index'
   get 'sales/unpaid'
   get 'sales/partially_paid'
+    get 'sales/credit_note'
   resources :journals
   resources :journal_entries
   resources :products
@@ -47,9 +50,11 @@ end
 
   get 'index/home'
   get 'reports/income_statement'
+  get 'reports/trial_balance'
   get 'payment_entries/invoice_entry'
   get 'reports/customer_balance'
   get 'reports/supplier_balance'
+  get 'reports/vat_report'
   root 'index#home'
   
     resources :financial_transactions do 

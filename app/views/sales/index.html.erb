@@ -39,11 +39,15 @@
             
           <% else if sale.sales_type == 'invoice' %>
          <%= link_to "Invoice", edit_sale_path(sale), class:"btn btn-success" %></td>
+         
+         <% else if sale.sales_type == 'credit_note' %>
+         <%= link_to "Credit Note", edit_sale_path(sale), class:"btn btn-default" %></td>
+            <% end %>
             <% end %>
              <% end %>
              <% end %>
       </td>   
-        <td><%= link_to "Edit", edit_sale_path(sale) %> | <%= link_to 'Delete', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><% if sale.sales_type != 'credit_note' %><%= link_to "Edit", edit_sale_path(sale) %> | <%= link_to 'Delete', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td> <%end%>
       </tr>
     <% end %>
   </tbody>

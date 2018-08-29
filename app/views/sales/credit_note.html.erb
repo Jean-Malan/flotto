@@ -1,0 +1,48 @@
+<% if notice %>
+    <p class= 'alert alert-success'><%= notice %> <a href="#" data-dismiss="alert" class="close">×</a></p>
+<% end %>
+</br>
+<%= link_to 'New Invoice', new_sale_path,  class: "btn btn-primary col-md-4" %> <%= link_to 'Drafts', sales_draft_index_path,  class: "btn btn-default pull-right" %><%= link_to 'Outstanding', sales_unpaid_path,  class: "btn btn-danger pull-right" %><%= link_to 'Partially Paid', sales_partially_paid_path,  class: "btn btn-warning pull-right" %><%= link_to 'Paid', sales_paid_path,  class: "btn btn-success pull-right" %><%= link_to 'All', sales_path,  class: "btn btn-info pull-right" %>  
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
+  Add sale
+</button>
+
+<br><br>
+<div class= "card">
+<table class="table table-responsive-lg">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Customer</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @credit_note.each do |credit_note| %>
+      <tr>
+        <td><%= link_to credit_note.date, crediting_note_path(credit_note) %></td>
+        <td><%= credit_note.contact_id ? credit_note.contact.name : 'No customer'  %></td>
+        <td><%= credit_note.sale.invoice_number %></td>
+      <td><%= number_to_currency(credit_note.credit_amount, :unit => "R ")%></td>
+        <td> <%= link_to "Credit Note",  crediting_note_path(credit_note), class:"btn btn-default" %></td>
+            <% end %>
+            
+      </td>   
+  </tbody>
+</table>
+</div>
+
+<br>
+
+
+
+  </table>
+  
+
+    </div>
+  </div>
+    </center>

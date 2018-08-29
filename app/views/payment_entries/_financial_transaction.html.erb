@@ -19,7 +19,7 @@
      <td><%= f.grouped_collection_select :purchase_id, Contact.where(:user_id => current_user.id).order(:name), :purchases, :name, :id, :invoice_number, {:prompt => false},class:"form-control invoicedrop" %></td>
      <td><%= f.collection_select :vat_type, FinancialTransaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => false},class:"form-control standarddrop"  %></td>
      <td> <%= f.text_field :total_amount, class: 'form-control input'  %></td>
-        <%  f.check_box :payment, :value => true %>
+       <%= f.input :payment, :as => :hidden, :input_html => { :value => :true } %>
             <%= f.hidden_field :user_id, :value => current_user.id %>
 
      

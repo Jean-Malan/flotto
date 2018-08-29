@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @vat_account_balance.date %>
+</p>
+
+<p>
+  <strong>Gl account:</strong>
+  <%= @vat_account_balance.gl_account_id %>
+</p>
+
+<p>
+  <strong>Reference:</strong>
+  <%= @vat_account_balance.reference %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @vat_account_balance.description %>
+</p>
+
+<p>
+  <strong>Vat amount:</strong>
+  <%= @vat_account_balance.vat_amount %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @vat_account_balance.user_id %>
+</p>
+
+<p>
+  <strong>Sales entry:</strong>
+  <%= @vat_account_balance.sales_entry_id %>
+</p>
+
+<p>
+  <strong>Purchase entry:</strong>
+  <%= @vat_account_balance.purchase_entry_id %>
+</p>
+
+<p>
+  <strong>Journal entry:</strong>
+  <%= @vat_account_balance.journal_entry_id %>
+</p>
+
+<p>
+  <strong>Sale:</strong>
+  <%= @vat_account_balance.sale_id %>
+</p>
+
+<p>
+  <strong>Purchase:</strong>
+  <%= @vat_account_balance.purchase_id %>
+</p>
+
+<p>
+  <strong>Financial transaction:</strong>
+  <%= @vat_account_balance.financial_transaction_id %>
+</p>
+
+<%= link_to 'Edit', edit_vat_account_balance_path(@vat_account_balance) %> |
+<%= link_to 'Back', vat_account_balances_path %>

@@ -15,10 +15,10 @@ class BankAccountsController < ApplicationController
   # GET /bank_accounts/1
   # GET /bank_accounts/1.json
   def show
-    @total = FinancialTransaction.all.where("user_id =?", current_user.id)
-    @financial_transactions = FinancialTransaction.all.where("user_id =?", current_user.id).order('date DESC').paginate(:per_page => 100, :page => params[:page])
-   # @search = FinancialTransactionSearch.new(params[:search])
-   # @financial_transactions = @search.scope.where("user_id =?", current_user.id).searchref(params[:searchref]).order('date DESC').paginate(:per_page => 100, :page => params[:page])
+    @financial_transactions = FinancialTransaction.all.where("user_id =?", current_user.id).order('date DESC')
+   # @financial_transactions = FinancialTransaction.all.where("user_id =?", current_user.id).order('date DESC').paginate(:per_page => 100, :page => params[:page])
+    @search = FinancialTransactionSearch.new(params[:search])
+    @fincial_transactions = @search.scope.where("user_id =?", current_user.id).searchref(params[:searchref]).order('date ASC').paginate(:per_page => 1000, :page => params[:page])
   end
   
   

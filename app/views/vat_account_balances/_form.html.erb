@@ -1,0 +1,24 @@
+
+<%= simple_form_for(@vat_account_balance) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :date %>
+    <%= f.input :gl_account_id %>
+    <%= f.input :reference %>
+    <%= f.input :description %>
+    <%= f.input :vat_amount %>
+    <%= f.input :user_id %>
+    <%= f.input :sales_entry_id %>
+    <%= f.input :purchase_entry_id %>
+    <%= f.input :journal_entry_id %>
+    <%= f.input :sale_id %>
+    <%= f.input :purchase_id %>
+    <%= f.input :financial_transaction_id %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

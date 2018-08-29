@@ -21,6 +21,7 @@
      <td class = 'standarddrop'><%= f.collection_select :vat_type, FinancialTransaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:include_blank => true},class:"form-control standarddrop"  %></td>
      <td> <%= f.text_field :total_amount, class: 'form-control input'  %></td>
          <%= f.hidden_field :user_id, :value => current_user.id %>
+         <%  f.check_box :receipt, :value => true %>
 
      
 

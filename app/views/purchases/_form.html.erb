@@ -22,7 +22,7 @@
    <th> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td></th>
    <th></th>
    <th>  <%= f.label :customer_id %><br></th>
-    <th> <%= f.collection_select(:contact_id, Contact.all, :id, :name, {:prompt => false},  class: 'form-control')  %></th>
+    <th> <%= f.collection_select(:contact_id, Contact.all.where(:user_id => current_user.id), :id, :name, {:prompt => false},  class: 'form-control')  %></th>
     <th>  <%=  f.text_field :invoice_number, class: 'form-control pull-right'  %></th>
     <th>  <%=  f.select :purchases_type, Purchase.purchases_types.keys, {}, class: 'form-control pull-right'  %></th>
    </tr></center>

@@ -3,9 +3,9 @@
         <%= f.hidden_field :_destroy %>
         <%= link_to "remove", '#', class: "remove_record" %>
     </td>
-      <td> <%= f.collection_select :product_id, Product.all, :id, :name, {:prompt => false},class:"form-control" %></td>
+      <td> <%= f.collection_select :product_id, Product.all.where(:user_id => current_user.id), :id, :name, {:prompt => false},class:"form-control" %></td>
      <td><%= f.text_field :description, label: false, class:"form-control" %></td>
-    <td><%= f.collection_select :gl_account_id, GlAccount.all, :id, :name, {:prompt => false},class:"form-control" %></td>
+    <td><%= f.collection_select :gl_account_id, GlAccount.all.where(:user_id => current_user.id), :id, :name, {:prompt => false},class:"form-control" %></td>
     <td><%= f.collection_select :vat_type, PurchaseEntry.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => false},class:"form-control"  %></td>
     <td><%= f.text_field :quantity, label: false, class:"form-control qty"%></td>
     <td><%= f.text_field :price, label: false, class:"form-control price"%></td>

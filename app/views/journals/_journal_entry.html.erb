@@ -7,7 +7,7 @@
     <td><%= f.text_field :amount, label: false, class: 'form-control input' , placeholder: "Amount" %></td>
     <td>
        
-       <%= f.collection_select(:account_id, GlAccount.where(:user_id => current_user.id), :id, :name, prompt: true, class: 'form-control input' ) %>
+       <%= f.collection_select(:gl_account_id, GlAccount.where(:user_id => current_user.id), :id, :name, prompt: true, class: 'form-control input' ) %>
         </div>
     <td><%= f.check_box :debit, class: 'form-control input' %></td>
     <td><%= f.check_box :credit, class: 'form-control input'  %></td>

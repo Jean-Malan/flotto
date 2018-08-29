@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2018-08-23
+  account_id: 1
+  reference: MyString
+  amount: 1
+  user_id: 1
+
+two:
+  date: 2018-08-23
+  account_id: 1
+  reference: MyString
+  amount: 1
+  user_id: 1

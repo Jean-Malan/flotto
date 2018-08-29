@@ -1,0 +1,164 @@
+<p id="notice"><%= notice %></p>
+
+<h1><center><strong>Income Statement</strong></center></h1>
+</br>
+
+<center>
+
+
+  <div class= "card col-md-12">
+<table class="table table-hover">
+  <thead>
+    <tr>
+     <th class="text-info col-md-3"><h3><strong>Assets </strong></h3></th>
+      <th class="text-info col-md-3"><strong></strong></th>
+      <th class="text-info col-md-3">><h3><strong> </strong></h3></th>
+    </tr>
+  </thead>
+
+ <tbody>
+   <td><h5><strong>Assets</strong></h5></td>
+   <td></td>
+   <td></td>
+  </tbody>
+  
+  <!----------------------------------------------- Current Assets -------------------------------------------- !-->
+  <tbody>
+      
+       <% @gl_accounts.each do |account| %>
+      <% if account.account_type == 'current_asset' %>
+      <tr>
+        <td> <%= account.code %> - <%= account.name %></td>
+        <td> </td>
+        <td><%= account.account_balances.sum(:amount).round(2) %></td>
+    <% end %>
+    <% end %>
+    
+  <!----------------------------------------------- Trade Other Receivables -------------------------------------------- !-->
+         <% @total_balance = 0 %>
+       <% @contacts.each do |contacts| %>
+       <% @total_balance += contacts.sale_balance.to_f %>
+       <% end %>
+      <tr>
+        <td> Trade & Other Receivables </td>
+        <td> </td>
+        <td><%= @total_balance.round(2) %></td>
+        
+   <!----------------------------------------------- Cash & cash equivalents -------------------------------------------- !-->       
+        
+       <% @bank_accounts.each do |bank_account| %>
+       <% @bank_balance = 0 %>
+       <% @bank_balance += bank_account.financial_transactions.sum(:total_amount).round(2) %>
+       <% end %>
+      <tr>
+        <td> Cash & cash equivalents </td>
+        <td> </td>
+        <td><%= @bank_balance %></td>
+ 
+
+   <!----------------------------------------------- Non Current Assets -------------------------------------------- !-->   
+     <% @gl_accounts.each do |account| %>
+      <% if account.account_type == 'non_current_asset' %>
+      <tr>
+        <td> <%= account.code %> - <%= account.name %></td>
+        <td> </td>
+        <td><%= account.account_balances.sum(:amount).round(2) %></td>
+    <% end %>
+    <% end %>
+    
+  </tbody>
+  
+  
+</table>
+</div>
+
+ <div class= "card col-md-12">
+<table class="table table-hover">
+  <thead>
+    <tr>
+     <th class="text-info col-md-3"><h3><strong>Equity </strong></h3></th>
+      <th class="text-info col-md-3"><strong></strong></th>
+      <th class="text-info col-md-3"><h3><strong> </strong></h3></th>
+    </tr>
+  </thead>
+
+  <!----------------------------------------------- Equity -------------------------------------------- !-->    
+<% @gl_accounts.each do |account| %>
+      <% if account.account_type == 'equity' %>
+      <tr>
+        <td> <%= account.code %> - <%= account.name %></td>
+        <td> </td>
+        <td><%= account.account_balances.sum(:amount).round(2) %></td>
+    <% end %>
+    <% end %>
+    </tr>
+    <tr>
+       <td>Owners Equity</td>
+        <td> </td>
+        <td><%= @income_statement.round(2) %></td>
+        </tr>
+
+  </tbody>
+</table>
+</div>
+
+
+ <div class= "card col-md-12">
+<table class="table table-hover">
+  <thead>
+    <tr>
+     <th class="text-info col-md-3"><h3><strong>Liabilities </strong></h3></th>
+      <th class="text-info col-md-3"><strong></strong></th>
+      <th class="text-info col-md-3"><h3><strong> </strong></h3></th>
+    </tr>
+  </thead>
+  
+  <!----------------------------------------------- Current Liabilities -------------------------------------------- !-->
+  
+   <% @gl_accounts.each do |account| %>
+      <% if account.account_type == 'current_liability' && account.id != current_user.id*4**8 %>
+      <tr>
+        <td> <%= account.code %> - <%= account.name %></td>
+        <td> </td>
+        <td><%= account.account_balances.sum(:amount).round(2)  %></td>
+    <% end %>
+    <% end %>
+    <tr>
+        
+        <tr>
+        <td> Vat Control </td>
+        <td> </td>
+        <td><%= @vat_balance.round(2) %></td>
+        </tr>
+
+
+  <!----------------------------------------------- Trade & other payables -------------------------------------------- !-->
+  
+  <% @total_purchase_balance = 0 %>
+   <% @contacts.each do |contacts| %>
+      <% @total_purchase_balance += contacts.purchase_balance.to_f %>
+       <% end %>
+      <tr>
+        <td> Trade & Other Payables </td>
+        <td> </td>
+        <td><%= @total_purchase_balance.round(2) %></td>
+
+   <!----------------------------------------------- Non-Current Liabilities -------------------------------------------- !-->
+   
+       <% @gl_accounts.each do |account| %>
+      <% if account.account_type == 'non_current_liability' %>
+      <tr>
+        <td> <%= account.code %> - <%= account.name %></td>
+        <td> </td>
+        <td><%= account.account_balances.sum(:amount).round(2) %></td>
+    <% end %>
+    <% end %>
+
+      </tr>
+      
+      </table>
+</center>
+</div>
+
+
+

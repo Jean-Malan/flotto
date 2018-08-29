@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @account_balance.date %>
+</p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @account_balance.account_id %>
+</p>
+
+<p>
+  <strong>Reference:</strong>
+  <%= @account_balance.reference %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @account_balance.amount %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @account_balance.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_account_balance_path(@account_balance) %> |
+<%= link_to 'Back', account_balances_path %>

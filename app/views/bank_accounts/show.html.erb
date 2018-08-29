@@ -12,7 +12,7 @@
   </div>
    <p class="card-category"> Account balance:</p>
    <% @bank_total = 0 %>
-    <h3 class="card-title"> <% @total.each do |transaction| %>
+    <h3 class="card-title"> <% @financial_transactions.each do |transaction| %>
                             <% if transaction.bank_account_id == @bank_account.id %>
                             <% @bank_total += transaction.total_amount.to_f.round(2) %>
                              <% end %> 
@@ -69,6 +69,8 @@
 </div>
 <br />
 
+    
+    <div id="total"></div><
  <div class="card">
  <div class="card-body table-responsive fold-table">
    <table class="table table-responsive-lg fold-table">
@@ -120,7 +122,7 @@
         <td> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td>
          <td><%= f.text_field :reference, label: false, class: 'form-control input', placeholder: 'reference'  %></td>
          <td><%= f.text_field :description, label: false, class: 'form-control input', placeholder: 'description'  %></td>
-        <td class = 'standard'><%= f.collection_select :gl_account_id, GlAccount.all, :id, :name, {:prompt => true}, class:"form-control select" %></td>
+        <td class = 'standard'><%= f.collection_select :gl_account_id, GlAccount.all.where(:user_id => current_user.id), :id, :name, {:prompt => true}, class:"form-control select" %></td>
         <t class = 'invoice'><% f.collection_select :purchase_id, Purchase.all, :id, :invoice_number, {:prompt => true},class:"form-control select" %></t>
         <td class = 'standard'><%= f.collection_select :vat_type, FinancialTransaction.vat_types.map{ |dp| [dp.first, dp.first.humanize] }, :first, :second,{:prompt => true},class:"form-control select" %></td>
          <td> <%= f.text_field :total_amount, class: 'form-control input'  %></td>
@@ -138,7 +140,7 @@
 
 <%= link_to 'Edit', edit_bank_account_path(@bank_account) %> |
 <%= link_to 'Back', bank_accounts_path %>
-<%= will_paginate @financial_transactions, :class => 'pagination-lg page-item' %>
+
 
 
 

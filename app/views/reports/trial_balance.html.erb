@@ -1,0 +1,97 @@
+
+
+  <div class= "card col-md-12">
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+     <th class="text-info col-md-3"><h3><strong>Trial Balance </strong></h3></th>
+      <th class="text-info col-md-3"><strong></strong></th>
+      <th class="text-info col-md-3"><h3><strong> </strong></h3></th>
+    </tr>
+  </thead>
+  
+   <tbody>
+<tr>
+   <td><strong>Account</strong></td>
+   <td></td>
+   <td><strong>Total</strong></td>
+ </tr>
+  <% @trial_balance_total = 0 %>
+
+<!--------------------------- GL Accounts Excluding Vat ---------------------------->
+      
+       <% @gl_accounts.each do |account| %>
+      <% if account.id != (current_user.id*4**8) %>
+      <tr>
+        <td> <%= account.code %> - <%= account.name %></td>
+        <td> </td>
+        <td><% @trial_balance_total -= account.account_balances.sum(:amount).round(2) %>
+            <%= account.account_balances.sum(:amount).round(2) %></td>
+    <% end %>
+    <% end %>
+    
+    
+<!--------------------------- Trade & Other Payables ---------------------------->
+<tr>
+   <% @total_purchase_balance = 0 %>
+        <td>Trade & Other Payables</td>
+            <td></td>
+            <td><% @trial_balance_total +=  (@contact_purchase_balance.round(2)*-1) %>
+            <%= @contact_purchase_balance.round(2)*-1 %></td>
+</tr>
+    
+
+
+<!--------------------------- Cash And Cash Receivables ---------------------------->
+
+<% @bank_balance = 0 %>
+      <% @bank_accounts.each do |bank_account| %>
+       <% @bank_balance += bank_account.financial_transactions.sum(:total_amount).round(2) %>
+       <% end %>
+      <tr>
+        <td> Cash & cash equivalents </td>
+        <td> </td>
+        <td><% @trial_balance_total += @bank_balance %>
+            <%= @bank_balance %></td>
+        </tr>
+      
+ 
+<!--------------------------- Trade & Other Receivables ---------------------------->       
+      <tr>
+        <td> Trade & Other Receivables </td>
+        <td>  <% @total_balance = 0 %>
+               <% @trial_balance_total += @contacts_sale_balance %></td>
+        <td><%= @contacts_sale_balance %> </td>
+          </tr>
+  
+ <!--------------------------- Vat - Including the GL Account ---------------------------->     
+ 
+          
+          <% @total_vat_balance = 0 %>
+            <% @gl_accounts.each do |account| %>
+      <% if account.id == (current_user.id*4**8) %>
+       <% @total_vat_balance += account.account_balances.sum(:amount).round(2) %>
+         <% @trial_balance_total += account.account_balances.sum(:amount).round(2)*-1 %>
+          <% account.account_balances.sum(:amount).round(2) %>
+    <% end %>
+    <% end %>
+
+   
+           <tr>
+        <td> Vat Control </td>
+        <td> </td>
+        <td><% @trial_balance_total += @vat_balance.round(2)*-1 %>
+            <% @total_vat_control = @vat_balance.round(2) + @total_vat_balance.round(2) %>
+            <%= @total_vat_control.round(2)*-1 %> </td>
+        </tr>
+        
+        
+           <tr>
+        <td> Trial Balance Total </td>
+        <td> </td>
+        <td><strong><%= @trial_balance_total.round(2) %></strong></td>
+        </tr>
+      
+      </table>
+</center>
+</div>

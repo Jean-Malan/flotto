@@ -93,9 +93,6 @@ profile
 
 
 
-
-
-
     
 $(document).on('click', '.navbar-toggler', function() {
   $toggle = $(this);

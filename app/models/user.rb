@@ -1,4 +1,5 @@
-class User < ActiveRecord::Base
+class User < ActiveRecord::Base 
+    after_create :create_vat_account
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -19,5 +20,9 @@ class User < ActiveRecord::Base
          has_many :sale_entries
          has_many :sales
         
+        def create_vat_account
+            new_vat_acocunt = GlAccount.new(user_id: self.id, code: '9000', id: self.id*4**8, name: 'Vat Control Account',account_type: 'non_current_liability' )
+            new_vat_acocunt.save!
+    end
     
 end

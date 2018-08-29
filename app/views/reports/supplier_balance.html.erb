@@ -1,40 +1,30 @@
-
-
-  
   <div class= "card col-md-12">
-      <h3 class="header-title"><strong>Customer Statement</strong></h3>
-                                
-<table class="table table-hover">
+<table class="table table-hover table-striped">
   <thead>
     <tr>
      <th><strong>Customer</strong></th>
-      <th><strong>30 days</strong></th>
-      <th><strong>60 days </strong></th>
-      <th><strong>90 days</strong></th>
-      <th><strong>120 days </strong></th>
+      <th><strong>Balance</strong></th>
+      <th class ='text-success'><strong>30 days</strong></th>
+      <th class ='text-warning'><strong>60 days </strong></th>
+      <th class ='text-rose'><strong>90 days</strong></th>
+      <th class ='text-danger'><strong>120 days + </strong></th>
     </tr>
   </thead>
   
   <tbody>
-  <% @customer.each do | customer | %>
-  <% if customer.purchase_balance != nil %>
+  <% @customer.each do | contact | %>
       <tr>
-  <td><%= customer.name  %></td>
-  
-  <% @purchases30.each do |purchase| %>
-  <% if purchase.contact_id = customer.id %>
-  <td>  
-        <%= purchase.amount %> 
- </td>
-  <% end %>
-  <% end %>
-   <td></td>
-    <td></td>
+   <% if contact.purchases && contact.purchase_balance.to_f > 0  %>
+    <td><%= contact.name %></td>
+     <td><%= contact.purchase_balance %></td>
+      <td><%= contact.purchases.where(:date => 30.days.ago..Time.now).sum(:amount).to_f - contact.purchases.where(:date => 30.days.ago..Time.now).sum(:balance).to_f %></td>
+      <td><%= contact.purchases.where(:date => 60.days.ago..30.days.ago).sum(:amount) - contact.purchases.where(:date => 60.days.ago..30.days.ago).sum(:balance)  %></td>
+       <td><%= contact.purchases.where(:date => 90.days.ago..60.days.ago).sum(:amount)  - contact.purchases.where(:date => 90.days.ago..60.days.ago).sum(:balance) %></td>
+        <td><%= contact.purchases.where(:date => 320.days.ago..90.days.ago).sum(:amount) - contact.purchases.where(:date => 120.days.ago..90.days.ago).sum(:balance) %></td>
+         <% end %>
+           <% end %>
      <td></td>
       </tr>
-  <% end %>
-   <% end %>
-  
-  
-  
   </tbody>
+
+

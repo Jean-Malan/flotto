@@ -24,7 +24,6 @@
       <tr>
         <td><%= link_to gl_account.code, edit_gl_account_path(gl_account)  %></td>
         <td><%= gl_account.name %></td>
-        <td><%= gl_account.account_balance %></td>
         <td><%= gl_account.account_type.humanize %></td>
         <td><%= link_to 'Destroy', gl_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

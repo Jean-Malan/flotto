@@ -8,10 +8,7 @@ class IncomeStatementSearch
    end
    
    def scope 
-      FinancialTransaction.where('date BETWEEN ? AND ?', @date_from, @date_to)
-      Purchase.where('date BETWEEN ? AND ?', @date_from, @date_to)
-      Sale.where('date BETWEEN ? AND ?', @date_from, @date_to)
-
+      account.account_balance.where('date BETWEEN ? AND ?', @date_from, @date_to).sum(:amount)
    end
    
    private
@@ -26,3 +23,4 @@ class IncomeStatementSearch
 
 
 end
+

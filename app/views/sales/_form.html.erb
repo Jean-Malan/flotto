@@ -20,6 +20,7 @@
    <table class = "table">
     <thead>
       <tr><center>
+          <% if @sale.sales_type != 'credit_not' %>
     <%= f.hidden_field :balance, :value => 0%>
     <th>  <%= f.label :date %><br></th>
    <th> <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </td></th>
@@ -32,7 +33,7 @@
     <th>  <%= f.label :due_date %></th>
    <th> <%= f.date_field :due_date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> </th>
      <th>  <%= f.label :invoice_number %></th><th><%=  f.text_field :invoice_number, class: 'form-control' %></th>
-    
+    <% end %>
    </tr></center>
    </tr></center>
    <th></th>

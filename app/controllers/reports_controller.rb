@@ -4,25 +4,55 @@ class ReportsController < ApplicationController
 
   # GET /reports
   # GET /reports.json
-  def index
-    @reports = Report.all.where("user_id =?", current_user.id)
-  end
+   def trial_balance
+      
+      
+      @contact_purchase_total = Contact.all.where("user_id =?", current_user.id).sum(:purchase_balance)
+      @contact_purchase_balance = Contact.all.where("user_id =?", current_user.id).sum(:purchase_balance)
+      
+      @bank_accounts = BankAccount.all.where("user_id =?", current_user.id)
 
-  # GET /reports/1
-  # GET /reports/1.json
+      @financial_transactions = FinancialTransaction.all.where("user_id =?", current_user.id)
+      @contact_purchase_balance = Contact.all.where("user_id =?", current_user.id).sum(:purchase_balance)
+      @vat_balance = VatAccountBalance.where("user_id =?", current_user.id).sum(:vat_amount)
+      @contacts_purchase_balance = Contact.all.where("user_id =?", current_user.id).sum(:purchase_balance)
+      @contacts_sale_balance = Contact.all.where("user_id =?", current_user.id).sum(:sale_balance)
+       
+      @gl_accounts = GlAccount.all.where("user_id =?", current_user.id)
+    
+    
+      @income_statement = 0
+      @gl_accounts.each do |account|
+      if account.account_type == 'operating_expense' || account.account_type == 'cost_of_sales' || account.account_type == 'sales' || account.account_type == 'other_income'
+       @income_statement += account.account_balances.sum(:amount).round(2)  
+      end
+    end 
+    
+     if params[:start_date] && params[:end_date] 
+       start_date = params[:start_date]
+       end_date = params[:end_date]
+   else 
+     
+     @gl_accounts = GlAccount.where("user_id =?", current_user.id)
+    end 
+  end 
+
+
   def show
   end
   
-  def income_statement
-   @reports = Report.all.where("user_id =?", current_user.id)
-   @gl_accounts = GlAccount.all.where("user_id =?", current_user.id)
-   @journal_entries = JournalEntry.all.where("user_id =?", current_user.id)
-   @purchases = Purchase.all.where("user_id =?", current_user.id)
-   @sale = Sale.all.where("user_id =?", current_user.id)
+def income_statement
+ @gl_accounts = GlAccount.all.where("user_id =?", current_user.id)
+   if params[:start_date] && params[:end_date] 
+       start_date = params[:start_date]
+       end_date = params[:end_date]
+   else 
+     @gl_accounts = GlAccount.where("user_id =?", current_user.id)
+    end 
+  end
    
    
-  end 
-  
+
    def customer_balance
     @sales = Sale.where("user_id =?", current_user.id).where("sales_type =?", 'invoice')
     @customer = Contact.where("user_id =?", current_user.id)
@@ -44,13 +74,47 @@ class ReportsController < ApplicationController
 
   end 
   
+   def vat_report
+    @vat_control = VatAccountBalance.where("user_id =?", current_user.id).where("date BETWEEN ? AND ?", params[:start_date], params[:end_date])
+     if params[:start_date] && params[:end_date] 
+       start_date = params[:start_date]
+       end_date = params[:end_date]
+   else 
+     @vat_control = VatAccountBalance.where("user_id =?", current_user.id)
+    end 
+
+  end 
+  
   
     def balance_sheet
-   @reports = Report.all.where("user_id =?", current_user.id)
-   @gl_accounts = GlAccount.all.where("user_id =?", current_user.id)
-   @journal_entries = JournalEntry.all.where("user_id =?", current_user.id)
-   @purchases = Purchase.all.where("user_id =?", current_user.id)
-   @sale = Sale.all.where("user_id =?", current_user.id)
+      
+      
+      @contact_purchase_total = Contact.all.where("user_id =?", current_user.id).sum(:purchase_balance)
+      @contact_purchase_balance = Contact.all.where("user_id =?", current_user.id).sum(:purchase_balance)
+      
+      @bank_accounts = BankAccount.all.where("user_id =?", current_user.id)
+
+      @financial_transactions = FinancialTransaction.all.where("user_id =?", current_user.id)
+      @contact_purchase_balance = Contact.all.where("user_id =?", current_user.id).sum(:purchase_balance)
+      @vat_balance = VatAccountBalance.where("user_id =?", current_user.id).sum(:vat_amount)
+      @contacts = Contact.all.where("user_id =?", current_user.id)
+      @gl_accounts = GlAccount.all.where("user_id =?", current_user.id)
+    
+    
+      @income_statement = 0
+      @gl_accounts.each do |account|
+      if account.account_type == 'operating_expense' || account.account_type == 'cost_of_sales' || account.account_type == 'sales' || account.account_type == 'other_income'
+       @income_statement += account.account_balances.sum(:amount).round(2)  
+      end
+    end 
+    
+     if params[:start_date] && params[:end_date] 
+       start_date = params[:start_date]
+       end_date = params[:end_date]
+   else 
+     
+     @gl_accounts = GlAccount.where("user_id =?", current_user.id)
+    end 
   end 
   
   # GET /reports/new

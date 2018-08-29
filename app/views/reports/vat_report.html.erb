@@ -1,0 +1,119 @@
+<p id="notice"><%= notice %></p>
+
+<h2><center><strong>Vat Report</strong></center></h2>
+</br>
+
+<center>
+<table class='col-md-6 pull-left '>
+<%= form_tag reports_vat_report_path, :method => 'get' do %>
+  <tr class='col-md-4'> <th><%= date_field_tag :start_date, {:prompt => true},  class:"form-control col-md-12", placeholder: :start_date %> </th>
+   <th><%= date_field_tag :end_date, {:prompt => true},  class:"form-control col-md-12" %></th> 
+  <th><%= submit_tag "Search", :class => "btn btn-primary" %></th>
+  <% end %>
+ </tr>
+ </table>
+ <br />
+ <br />
+ 
+ 
+   <!----------------------------------------------- Output Tax -------------------------------------------- !-->
+  <div class= "card col-md-12">
+ <table class="table table-hover">
+   <thead>
+    <tr>
+    <th class="text-info col-md-1"><strong>Output Tax </strong></th>
+     <th class="text- col-md-4"><strong>Account </strong></th>
+      <th class="text- col-md-4"><strong>Description</strong></th>
+      <th class="text- col-md-3"><strong>Balance </strong></th>
+    </tr>
+  </thead>
+
+      <tbody>
+     <% @output_total = 0 %>
+     <% @vat_control.each do |vat_control| %>
+     <% if vat_control.sale_id != nil || (vat_control.financial_transaction_id != nil && vat_control.vat_amount > 0) %>
+      <tr>
+        <td></td>
+        <td> <%= vat_control.date %></td>
+        <% if vat_control.sale_id %>
+        <td>Sale Invoice</td>
+        <td><% @output_total += vat_control.vat_amount.round(2) %><%= link_to vat_control.vat_amount.round(2), sale_path(vat_control.sale_id), :class => 'text-info' %></td>
+        <% else %>
+        <% if vat_control.financial_transaction_id %>
+        <td>Financial Transaction</td>
+        <td><% @output_total += vat_control.vat_amount.round(2) %><%= link_to vat_control.vat_amount.round(2), edit_financial_transaction_path(vat_control.financial_transaction_id), :class => 'text-info'%></td>
+    <% end %>
+    <% end %>
+     <% end %>
+     <% end %>
+           <tr>
+          <td class ='text-info'><strong> Total </strong></td>
+          <td></td>
+          <td></td>
+          <td class ='text-info'><strong><%= @output_total.round(2) %></strong></td>
+      </tbody>
+    </table>
+    </div>
+    
+ <!----------------------------------------------- Input Tax -------------------------------------------- !-->   
+    
+  <div class= "card col-md-12">
+<table class="table table-hover">
+  <thead>
+    <tr>
+     <th class="text-danger col-md-1"><strong>Input Tax </strong></th>
+     <th class="text col-md-4"><strong>Account </strong></th>
+      <th class="text col-md-4"><strong>Description</strong></th>
+      <th class="text col-md-3"><strong>Balance </strong></th>
+    </tr>
+  </thead>
+      <tbody>
+     <% @input_total = 0 %>
+       <% @vat_control.each do |vat_control| %>
+         <% if vat_control.purchase_id != nil || (vat_control.financial_transaction_id != nil && vat_control.vat_amount < 0) %>
+      <tr>
+           <td></td>
+            <td> <%= vat_control.date %></td>
+           <% if vat_control.purchase_id %>
+             <td>Purchase Invoice</td>
+        <td><% @input_total += vat_control.vat_amount.round(2) %><%= link_to vat_control.vat_amount.round(2), purchase_path(vat_control.purchase_id), :class => 'text-danger' %></td>
+        <% else %>
+        <% if vat_control.financial_transaction_id %>
+        <td>Financial Transaction</td>
+        <td class="text-info" ><% @input_total += vat_control.vat_amount.round(2) %><%= link_to vat_control.vat_amount.round(2), edit_financial_transaction_path(vat_control.financial_transaction_id), :class => 'text-danger' %></td>
+    <% end %>
+    <% end %>
+     <% end %>
+     <% end %>
+     
+     </tr>
+          <td class ='text-danger'><strong> Total </strong></td>
+          <td></td>
+          <td></td>
+          <td class ='text-danger'><strong><%= @input_total.round(2) %></strong></td>
+          </tr>
+      </tbody>
+    </table>
+    </div>
+
+ <!----------------------------------------------- Tax Breakdown -------------------------------------------- !-->   
+
+<div class= "card col-md-12">
+ <table class="table table-hover">
+  <thead>
+    <tr>
+     <th class="text-danger col-md-1"><strong> </strong></th>
+     <th class="text col-md-4"><strong>Input Tax Total </strong></th>
+      <th class="text col-md-4"><strong>Output Tax Total</th>
+      <th class="text col-md-3"><strong>Tax Due: </strong></th>
+    </tr>
+  </thead>
+  <tbody>
+      <td></td>
+      <td class='text-info'><strong><%= @output_total.to_f.round(2) %></strong></td>
+      <td class='text-danger'><strong><%= @input_total.to_f.round(2) %></strong></td>
+      <td class='text'><strong><% @vat_total = @input_total.to_f.round(2) + @output_total.to_f.round(2) %>
+                                <%= @vat_total.round(2) %></strong></td>
+  </tbody>
+  </table>
+  </div>

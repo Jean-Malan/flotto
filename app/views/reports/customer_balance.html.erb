@@ -1,62 +1,29 @@
-
-
-  
   <div class= "card col-md-12">
-      <h3 class="header-title"><strong>Customer Statemen</strong></34>
-                                
-<table class="table table-hover">
-  <thead>
+<table class="table table-hover table">
+  <thead class='table-header'>
     <tr>
      <th><strong>Customer</strong></th>
+      <th><strong>Balance</strong></th>
       <th><strong>30 days</strong></th>
       <th><strong>60 days </strong></th>
       <th><strong>90 days</strong></th>
-      <th><strong>120 days </strong></th>
+      <th><strong>120 days + </strong></th>
     </tr>
   </thead>
   
   <tbody>
-  <% @sales30.each do | sale30 | %>
+  <% @customer.each do | contact | %>
       <tr>
-  <td><%= sale30.contact ? sale30.contact.name : " " %></td>
-  <td><%=link_to sale30.amount, sale_path(sale30) %></td>
-   <td></td>
-    <td></td>
+   <% if contact.sales  %>
+    <td><%= contact.name %></td>
+     <td><%= contact.sale_balance %></td>
+      <td><%= contact.sales.where(:date => 30.days.ago..Time.now).sum(:amount).to_f - contact.sales.where(:date => 30.days.ago..Time.now).sum(:balance).to_f %></td>
+      <td><%= contact.sales.where(:date => 60.days.ago..30.days.ago).sum(:amount) - contact.sales.where(:date => 60.days.ago..30.days.ago).sum(:balance)  %></td>
+       <td><%= contact.sales.where(:date => 90.days.ago..60.days.ago).sum(:amount)  - contact.sales.where(:date => 90.days.ago..60.days.ago).sum(:balance) %></td>
+        <td><%= contact.sales.where(:date => 320.days.ago..90.days.ago).sum(:amount) - contact.sales.where(:date => 320.days.ago..90.days.ago).sum(:balance) %></td>
+         <% end %>
+           <% end %>
      <td></td>
       </tr>
-  <% end %>
-  
-   <% @sales60.each do | sale60 | %>
-      <tr>
-  <td><%= sale60.contact ? sale60.contact.name : " " %></td>
-  <td></td>
-  <td><%=link_to sale60.amount, sale_path(sale60) %></td>
-   <td></td>
-    <td></td>
-      </tr>
-  <% end %>
-  
-   <% @sales90.each do | sale90 | %>
-      <tr>
-  <td><%= sale90.contact ? sale90.contact.name : " " %></td>
-  <td></td>
-   <td></td>
-  <td><%=link_to sale90.amount, sale_path(sale90) %></td>
-   <td></td>
-      </tr>
-  <% end %>
-  
-   <% @sales120.each do | sale120 | %>
-      <tr>
-  <td><%= sale120.contact ? sale120.contact.name : " " %></td>
-  <td></td>
-   <td></td>
-    <td></td>
-  <td><%=link_to sale120.amount, sale_path(sale120) %></td>
-      </tr>
-  <% end %>
-  
-  
-  
   </tbody>
 
